@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hyemi Yoon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #f5f2ee;
+    --surface: #ffffff;
+    --border: rgba(0,0,0,0.09);
+    --text: #1a1714;
+    --muted: rgba(26,23,20,0.5);
+    --accent: #7a5c38;
+    --accent-dim: rgba(122,92,56,0.08);
+  }
+  html, body { min-height: 100%; background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; -webkit-font-smoothing: antialiased; }
+  body { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100svh; padding: 2rem 1.5rem; position: relative; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E"); background-size: 200px; pointer-events: none; z-index: 0; }
+  .card { position: relative; z-index: 1; width: 100%; max-width: 360px; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 2.5rem 2rem 2rem; opacity: 0; transform: translateY(18px); animation: rise 0.7s cubic-bezier(0.22,1,0.36,1) 0.1s forwards; }
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+  .card::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); border-radius: 1px; }
+  .avatar-wrap { display: flex; justify-content: center; margin-bottom: 1.5rem; }
+  .avatar { width: 80px; height: 80px; border-radius: 12px; border: 1px solid var(--border); overflow: hidden; image-rendering: pixelated; }
+  .avatar img { width: 100%; height: 100%; image-rendering: pixelated; display: block; }
+  .name { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 400; text-align: center; letter-spacing: 0.04em; color: var(--text); margin-bottom: 4px; }
+  .title { font-size: 12px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-align: center; margin-bottom: 1.75rem; }
+  .divider { width: 100%; height: 1px; background: var(--border); margin-bottom: 1.75rem; }
+  .sns-list { display: flex; flex-direction: column; gap: 10px; }
+  .sns-btn { display: flex; align-items: center; gap: 12px; padding: 13px 16px; background: transparent; border: 1px solid var(--border); border-radius: 12px; color: var(--text); text-decoration: none; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 400; letter-spacing: 0.02em; transition: background 0.2s, border-color 0.2s, transform 0.15s; cursor: pointer; opacity: 0; transform: translateY(10px); }
+  .sns-btn:nth-child(1) { animation: rise 0.5s cubic-bezier(0.22,1,0.36,1) 0.55s forwards; }
+  .sns-btn:nth-child(2) { animation: rise 0.5s cubic-bezier(0.22,1,0.36,1) 0.68s forwards; }
+  .sns-btn:hover { background: var(--accent-dim); border-color: rgba(200,184,154,0.25); transform: translateY(-1px); }
+  .sns-btn:active { transform: scale(0.98); }
+  .sns-icon { width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 15px; }
+  .icon-x { background: rgba(255,255,255,0.06); }
+  .icon-li { background: rgba(10,102,194,0.15); }
+  .sns-icon svg { width: 16px; height: 16px; fill: currentColor; }
+  .sns-label { flex: 1; }
+  .sns-arrow { color: var(--muted); font-size: 16px; transition: transform 0.2s, color 0.2s; }
+  .sns-btn:hover .sns-arrow { transform: translateX(3px); color: var(--accent); }
+  .bio { font-size: 13px; line-height: 1.8; color: var(--muted); text-align: center; margin-bottom: 1.75rem; padding: 0 0.25rem; }
+  .bio strong { color: var(--accent); font-weight: 400; }
+  .footer { margin-top: 1.5rem; font-size: 11px; letter-spacing: 0.08em; color: rgba(26,23,20,0.25); text-align: center; text-transform: uppercase; opacity: 0; animation: rise 0.5s ease 0.9s forwards; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="avatar-wrap">
+    <div class="avatar">
+      <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSIjMWUxYjE4Ii8+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDUsMikiPgo8cmVjdCB4PSI5IiB5PSIwIiB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIGZpbGw9IiM2YjNhMWYiLz4KPHJlY3QgeD0iNjMiIHk9IjAiIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCIgZmlsbD0iIzZiM2ExZiIvPgo8cmVjdCB4PSIxMiIgeT0iMyIgd2lkdGg9IjkiIGhlaWdodD0iOSIgZmlsbD0iI2MwNzg1MCIvPgo8cmVjdCB4PSI5IiB5PSIxOCIgd2lkdGg9IjcyIiBoZWlnaHQ9IjQ1IiBmaWxsPSIjOGI0YTIyIi8+CjxyZWN0IHg9IjkiIHk9IjE4IiB3aWR0aD0iNzIiIGhlaWdodD0iOSIgZmlsbD0iIzliNWEzMCIvPgo8cmVjdCB4PSIyMiIgeT0iMjciIHdpZHRoPSIxMSIgaGVpZ2h0PSIxMSIgZmlsbD0iIzFhMGEwMCIvPgo8cmVjdCB4PSI1NyIgeT0iMjciIHdpZHRoPSIxMSIgaGVpZ2h0PSIxMSIgZmlsbD0iIzFhMGEwMCIvPgo8cmVjdCB4PSIyNSIgeT0iMjciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiIGZpbGw9IiNmZmZmZmYiLz4KPHJlY3QgeD0iNjAiIHk9IjI3IiB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmZmZmIi8+CjxyZWN0IHg9IjM2IiB5PSI0MCIgd2lkdGg9IjE4IiBoZWlnaHQ9IjgiIGZpbGw9IiMxYTBhMDAiLz4KPHJlY3QgeD0iMzgiIHk9IjQwIiB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjNWEyYTEwIi8+CjxyZWN0IHg9IjMxIiB5PSI0NiIgd2lkdGg9IjI4IiBoZWlnaHQ9IjE0IiBmaWxsPSIjYTA1ODMwIi8+CjxyZWN0IHg9IjMzIiB5PSI1MiIgd2lkdGg9IjgiIGhlaWdodD0iOCIgZmlsbD0iI2MwNzg1MCIvPgo8cmVjdCB4PSI0OSIgeT0iNTIiIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiNjMDc4NTAiLz4KPHJlY3QgeD0iMzYiIHk9IjU2IiB3aWR0aD0iMTgiIGhlaWdodD0iNiIgZmlsbD0iIzZiM2ExZiIvPgo8cmVjdCB4PSIxNCIgeT0iNjMiIHdpZHRoPSI2MiIgaGVpZ2h0PSI1MCIgZmlsbD0iIzhiNGEyMiIvPgo8cmVjdCB4PSIyMyIgeT0iNzAiIHdpZHRoPSI0NCIgaGVpZ2h0PSIzNCIgZmlsbD0iI2MwNzg1MCIvPgo8cmVjdCB4PSIwIiB5PSI2MyIgd2lkdGg9IjE0IiBoZWlnaHQ9IjMyIiBmaWxsPSIjOGI0YTIyIi8+CjxyZWN0IHg9Ijc2IiB5PSI2MyIgd2lkdGg9IjE0IiBoZWlnaHQ9IjMyIiBmaWxsPSIjOGI0YTIyIi8+CjxyZWN0IHg9IjAiIHk9IjkxIiB3aWR0aD0iMTQiIGhlaWdodD0iOCIgZmlsbD0iIzZiM2ExZiIvPgo8cmVjdCB4PSI3NiIgeT0iOTEiIHdpZHRoPSIxNCIgaGVpZ2h0PSI4IiBmaWxsPSIjNmIzYTFmIi8+CjxyZWN0IHg9IjE0IiB5PSIxMTMiIHdpZHRoPSIyNCIgaGVpZ2h0PSIyOCIgZmlsbD0iIzhiNGEyMiIvPgo8cmVjdCB4PSI1MiIgeT0iMTEzIiB3aWR0aD0iMjQiIGhlaWdodD0iMjgiIGZpbGw9IiM4YjRhMjIiLz4KPHJlY3QgeD0iOCIgeT0iMTMzIiB3aWR0aD0iMzAiIGhlaWdodD0iOCIgZmlsbD0iIzZiM2ExZiIvPgo8cmVjdCB4PSI1MiIgeT0iMTMzIiB3aWR0aD0iMzAiIGhlaWdodD0iOCIgZmlsbD0iIzZiM2ExZiIvPgo8cmVjdCB4PSI3NiIgeT0iMTAwIiB3aWR0aD0iOCIgaGVpZ2h0PSIyMiIgZmlsbD0iIzhiNGEyMiIvPgo8cmVjdCB4PSI4NCIgeT0iODQiIHdpZHRoPSI4IiBoZWlnaHQ9IjIyIiBmaWxsPSIjOGI0YTIyIi8+CjxyZWN0IHg9Ijc2IiB5PSI0NiIgd2lkdGg9IjI0IiBoZWlnaHQ9IjgiIGZpbGw9IiNlOGM4N2EiLz4KPHJlY3QgeD0iNzkiIHk9IjM4IiB3aWR0aD0iMTgiIGhlaWdodD0iOCIgZmlsbD0iI2U4Yzg3YSIvPgo8cmVjdCB4PSI4MiIgeT0iMzAiIHdpZHRoPSIxMiIgaGVpZ2h0PSI4IiBmaWxsPSIjZDRhODMwIi8+CjxyZWN0IHg9Ijc2IiB5PSI0NiIgd2lkdGg9IjI0IiBoZWlnaHQ9IjUiIGZpbGw9IiNmNWQwNjAiLz4KPHJlY3QgeD0iNzkiIHk9IjM4IiB3aWR0aD0iMTgiIGhlaWdodD0iNSIgZmlsbD0iI2Y1ZDA2MCIvPgo8cmVjdCB4PSI4MSIgeT0iNDAiIHdpZHRoPSI1IiBoZWlnaHQ9IjUiIGZpbGw9IiNkMDQwMjAiLz4KPHJlY3QgeD0iOTEiIHk9IjQ0IiB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSIjZDA0MDIwIi8+CjxyZWN0IHg9IjgzIiB5PSIzOCIgd2lkdGg9IjQiIGhlaWdodD0iNCIgZmlsbD0iI2IwMzAyMCIvPgo8cmVjdCB4PSI5MyIgeT0iNDQiIHdpZHRoPSI0IiBoZWlnaHQ9IjQiIGZpbGw9IiNiMDMwMjAiLz4KPHJlY3QgeD0iNDkiIHk9IjU2IiB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSIjZTg0MDYwIi8+CjxyZWN0IHg9IjU0IiB5PSI1MyIgd2lkdGg9IjUiIGhlaWdodD0iOCIgZmlsbD0iI2U4NDA2MCIvPgo8cmVjdCB4PSI0NCIgeT0iNTMiIHdpZHRoPSI1IiBoZWlnaHQ9IjgiIGZpbGw9IiNlODQwNjAiLz4KPHJlY3QgeD0iNDciIHk9IjYxIiB3aWR0aD0iMTAiIGhlaWdodD0iMyIgZmlsbD0iI2U4NDA2MCIvPgo8cmVjdCB4PSI1MCIgeT0iNjQiIHdpZHRoPSI1IiBoZWlnaHQ9IjMiIGZpbGw9IiNlODQwNjAiLz4KPC9nPgo8L3N2Zz4=" alt="ピザを食べる犬のピクセルアイコン">
+    </div>
+  </div>
+  <h1 class="name">Hyemi Yoon</h1>
+  <p class="title">UX / UI Designer</p>
+  <p class="bio">Hey there! I&#39;m a <strong>UX/UI Designer</strong> originally from Korea,<br>now based in Tokyo.<br><br>I lead <strong>UX/UI design</strong> for products and drive<br><strong>design system</strong> initiatives across the org.<br>Always happy to connect!</p>
+  <div class="divider"></div>
+  <nav class="sns-list" aria-label="SNSリンク">
+    <a class="sns-btn" href="https://twitter.com/d34102" target="_blank" rel="noopener">
+      <span class="sns-icon icon-x" aria-hidden="true">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </span>
+      <span class="sns-label">X (Twitter)</span>
+      <span class="sns-arrow">→</span>
+    </a>
+    <a class="sns-btn" href="https://www.linkedin.com/in/hyemiyoon/" target="_blank" rel="noopener">
+      <span class="sns-icon icon-li" aria-hidden="true">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="fill:#4d9de0"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </span>
+      <span class="sns-label">LinkedIn</span>
+      <span class="sns-arrow">→</span>
+    </a>
+  </nav>
+</div>
+<p class="footer">tap to connect</p>
+</body>
+</html>
