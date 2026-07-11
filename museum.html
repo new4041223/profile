@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>작품 해설 · 뮤지엄 컴패니언</title>
+<title>작품 해설 · 나를 위한 뮤지엄 컴패니언</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Noto+Serif+KR:wght@400;500;600&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
@@ -21,6 +21,8 @@
     --faint: rgba(243,237,227,0.32);
     --accent: #c9a86a;
     --accent-dim: rgba(201,168,106,0.12);
+    --insight: #a9c2d4;
+    --insight-dim: rgba(169,194,212,0.1);
     --danger: #d98a6a;
     --ok: #8fbf8f;
   }
@@ -37,13 +39,13 @@
   }
   .wrap { max-width: 560px; margin: 0 auto; padding: 0 1.15rem; }
 
-  /* Header */
   header { position: sticky; top: 0; z-index: 20; background: rgba(20,17,14,0.82); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
-  .header-inner { max-width: 560px; margin: 0 auto; padding: 0.9rem 1.15rem; display: flex; align-items: center; gap: .8rem; }
+  .header-inner { max-width: 560px; margin: 0 auto; padding: 0.9rem 1.15rem; display: flex; align-items: center; gap: .6rem; }
   .brand { display: flex; flex-direction: column; line-height: 1.2; }
   .brand .eyebrow { font-size: 9.5px; letter-spacing: .26em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
   .brand h1 { font-family: 'Noto Serif KR', serif; font-weight: 500; font-size: 18px; }
-  .icon-btn { margin-left: auto; width: 40px; height: 40px; border-radius: 50%; background: var(--surface); border: 1px solid var(--border); color: var(--text); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background .2s; }
+  .header-actions { margin-left: auto; display: flex; gap: .5rem; }
+  .icon-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--surface); border: 1px solid var(--border); color: var(--text); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background .2s; }
   .icon-btn:hover { background: var(--surface-2); }
   .icon-btn svg { width: 19px; height: 19px; fill: currentColor; }
 
@@ -51,7 +53,6 @@
   @keyframes fade { from { opacity: 0; transform: translateY(8px); } }
   [hidden] { display: none !important; }
 
-  /* Setup / API key */
   .hero-note { text-align: center; margin-bottom: 1.6rem; }
   .hero-note .big { font-family: 'Cormorant Garamond', serif; font-size: 30px; color: var(--accent); letter-spacing: .02em; }
   .hero-note p { font-size: 13.5px; color: var(--muted); margin-top: .5rem; }
@@ -59,16 +60,18 @@
   .panel h2 { font-family: 'Noto Serif KR', serif; font-weight: 500; font-size: 16px; margin-bottom: .5rem; }
   .panel .desc { font-size: 12.5px; color: var(--muted); line-height: 1.75; margin-bottom: 1rem; }
   label.fld { display: block; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); margin-bottom: .5rem; }
-  input[type="password"], input[type="text"], select {
+  input[type="password"], input[type="text"], select, textarea {
     width: 100%; background: var(--bg-2); border: 1px solid var(--border); border-radius: 11px;
     color: var(--text); font-family: inherit; font-size: 14px; padding: 12px 14px; outline: none; transition: border-color .2s;
   }
-  input:focus, select:focus { border-color: var(--border-strong); }
+  textarea { resize: vertical; min-height: 74px; line-height: 1.6; }
+  input:focus, select:focus, textarea:focus { border-color: var(--border-strong); }
   select { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23c9a86a'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 40px; }
   .row { display: flex; gap: .6rem; margin-top: .9rem; }
   .hint { font-size: 11.5px; color: var(--faint); margin-top: .7rem; line-height: 1.7; }
   .hint a { color: var(--accent); text-decoration: none; }
   .hint a:hover { text-decoration: underline; }
+  .fld-group { margin-bottom: 1.05rem; }
 
   .btn { font-family: inherit; font-size: 14px; font-weight: 500; border: none; border-radius: 12px; padding: 13px 18px; cursor: pointer; transition: filter .15s, transform .1s, background .2s, border-color .2s; display: inline-flex; align-items: center; justify-content: center; gap: 9px; }
   .btn svg { width: 18px; height: 18px; fill: currentColor; }
@@ -80,13 +83,22 @@
   .btn-block { width: 100%; }
   .btn[disabled] { opacity: .5; cursor: not-allowed; }
 
-  /* Capture screen */
-  .capture-hero { text-align: center; padding: 1.2rem 0 .4rem; }
-  .capture-big { position: relative; width: 100%; aspect-ratio: 1/1; max-width: 300px; margin: 0 auto 1.3rem; border-radius: 24px; border: 1.5px dashed rgba(201,168,106,0.4); background: linear-gradient(160deg, var(--surface), var(--bg-2)); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .8rem; cursor: pointer; transition: border-color .2s, transform .12s; }
+  /* Context card on home */
+  .ctx-card { background: linear-gradient(150deg, var(--surface), var(--bg-2)); border: 1px solid var(--border); border-radius: 14px; padding: .95rem 1.05rem; margin-bottom: 1.3rem; display: flex; align-items: center; gap: .85rem; cursor: pointer; transition: border-color .2s; }
+  .ctx-card:hover { border-color: var(--border-strong); }
+  .ctx-card .ic { width: 40px; height: 40px; border-radius: 11px; background: var(--accent-dim); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .ctx-card .ic svg { width: 20px; height: 20px; fill: var(--accent); }
+  .ctx-card .txt { flex: 1; min-width: 0; }
+  .ctx-card .txt .l { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); }
+  .ctx-card .txt .v { font-size: 13.5px; color: var(--text); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ctx-card .arrow { color: var(--faint); font-size: 18px; }
+
+  .capture-hero { text-align: center; padding: .4rem 0 .4rem; }
+  .capture-big { position: relative; width: 100%; aspect-ratio: 1/1; max-width: 290px; margin: 0 auto 1.3rem; border-radius: 24px; border: 1.5px dashed rgba(201,168,106,0.4); background: linear-gradient(160deg, var(--surface), var(--bg-2)); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .8rem; cursor: pointer; transition: border-color .2s, transform .12s; }
   .capture-big:hover { border-color: var(--accent); }
   .capture-big:active { transform: scale(.985); }
-  .capture-big .cam-ic { width: 64px; height: 64px; border-radius: 50%; background: var(--accent-dim); display: flex; align-items: center; justify-content: center; }
-  .capture-big .cam-ic svg { width: 30px; height: 30px; fill: var(--accent); }
+  .capture-big .cam-ic { width: 62px; height: 62px; border-radius: 50%; background: var(--accent-dim); display: flex; align-items: center; justify-content: center; }
+  .capture-big .cam-ic svg { width: 29px; height: 29px; fill: var(--accent); }
   .capture-big .t { font-family: 'Noto Serif KR', serif; font-weight: 500; font-size: 17px; }
   .capture-big .s { font-size: 12px; color: var(--muted); }
   .capture-actions { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; }
@@ -94,7 +106,6 @@
   .section-label { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); margin: 1.9rem 0 .8rem; display: flex; align-items: center; justify-content: space-between; }
   .section-label button { background: none; border: none; color: var(--accent); font-family: inherit; font-size: 11px; cursor: pointer; }
 
-  /* History list */
   .hist { display: flex; flex-direction: column; gap: .6rem; }
   .hist-item { display: flex; gap: .8rem; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 13px; padding: .55rem; cursor: pointer; transition: border-color .2s, transform .12s; }
   .hist-item:hover { border-color: var(--border-strong); transform: translateY(-1px); }
@@ -105,7 +116,6 @@
   .hist-item .meta .d { font-size: 10.5px; color: var(--faint); margin-top: 2px; }
   .empty { text-align: center; color: var(--faint); font-size: 13px; padding: 1.5rem 0; }
 
-  /* Analyzing */
   .analyzing { text-align: center; padding: 1rem 0; }
   .analyzing .preview { width: 100%; max-width: 340px; margin: 0 auto 1.4rem; border-radius: 18px; overflow: hidden; border: 1px solid var(--border); position: relative; }
   .analyzing .preview img { width: 100%; display: block; }
@@ -115,14 +125,16 @@
   @keyframes spin { to { transform: rotate(360deg); } }
   .analyzing .status { font-size: 14px; color: var(--muted); }
 
-  /* Result */
   .result-hero { width: 100%; border-radius: 18px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 1.3rem; background: #0d0b09; }
   .result-hero img { width: 100%; max-height: 52vh; object-fit: contain; display: block; }
-  .badge { display: inline-flex; align-items: center; gap: 6px; font-size: 10.5px; letter-spacing: .04em; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--border); color: var(--muted); margin-bottom: .6rem; }
+  .badge-row { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: .6rem; }
+  .badge { display: inline-flex; align-items: center; gap: 6px; font-size: 10.5px; letter-spacing: .04em; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--border); color: var(--muted); }
   .badge .dot { width: 7px; height: 7px; border-radius: 50%; }
   .conf-high .dot { background: var(--ok); } .conf-high { color: var(--ok); border-color: rgba(143,191,143,.3); }
   .conf-medium .dot { background: var(--accent); } .conf-medium { color: var(--accent); border-color: rgba(201,168,106,.3); }
   .conf-low .dot { background: var(--danger); } .conf-low { color: var(--danger); border-color: rgba(217,138,106,.3); }
+  .badge-you { color: var(--insight); border-color: rgba(169,194,212,.35); }
+  .badge-you .dot { background: var(--insight); }
   .r-title { font-family: 'Noto Serif KR', serif; font-weight: 600; font-size: 24px; line-height: 1.3; }
   .r-sub { font-size: 13.5px; color: var(--muted); margin-top: 5px; }
   .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin: 1.3rem 0; }
@@ -136,6 +148,16 @@
   .audio-note { font-size: 11.5px; color: var(--faint); }
   .desc p { font-size: 15px; line-height: 1.95; color: rgba(243,237,227,.86); margin-bottom: 1rem; font-weight: 300; }
   .desc p.summary { font-size: 15.5px; color: var(--text); border-left: 2px solid var(--accent); padding-left: 14px; }
+
+  /* Personalized insights */
+  .insights { margin: 1.5rem 0; background: var(--insight-dim); border: 1px solid rgba(169,194,212,0.22); border-radius: 16px; padding: 1.15rem 1.2rem; }
+  .insights h3 { font-family: 'Noto Serif KR', serif; font-weight: 500; font-size: 15px; color: var(--insight); margin-bottom: .3rem; display: flex; align-items: center; gap: 7px; }
+  .insights h3 svg { width: 16px; height: 16px; fill: var(--insight); }
+  .insights .sub { font-size: 11px; color: var(--faint); margin-bottom: .9rem; }
+  .insights ul { list-style: none; display: flex; flex-direction: column; gap: .75rem; }
+  .insights li { font-size: 14px; color: rgba(243,237,227,.9); padding-left: 22px; position: relative; line-height: 1.75; }
+  .insights li::before { content: '→'; position: absolute; left: 0; color: var(--insight); font-size: 13px; top: 3px; }
+
   .highlights { margin: 1.4rem 0; }
   .highlights h3 { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); margin-bottom: .7rem; }
   .highlights ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
@@ -146,25 +168,29 @@
   .alert { background: rgba(217,138,106,0.1); border: 1px solid rgba(217,138,106,0.3); color: var(--danger); border-radius: 12px; padding: 12px 15px; font-size: 13px; line-height: 1.7; margin-bottom: 1rem; }
   .alert b { font-weight: 500; }
 
-  /* Modal (settings) */
-  .modal-bg { position: fixed; inset: 0; z-index: 50; background: rgba(10,8,6,.7); backdrop-filter: blur(6px); display: flex; align-items: flex-end; justify-content: center; padding: 0; }
-  .modal { width: 100%; max-width: 560px; background: var(--bg-2); border-top: 1px solid var(--border-strong); border-radius: 20px 20px 0 0; padding: 1.4rem 1.2rem calc(1.4rem + env(safe-area-inset-bottom)); animation: up .3s cubic-bezier(.22,1,.36,1); }
+  .modal-bg { position: fixed; inset: 0; z-index: 50; background: rgba(10,8,6,.7); backdrop-filter: blur(6px); display: flex; align-items: flex-end; justify-content: center; padding: 0; overflow-y: auto; }
+  .modal { width: 100%; max-width: 560px; background: var(--bg-2); border-top: 1px solid var(--border-strong); border-radius: 20px 20px 0 0; padding: 1.4rem 1.2rem calc(1.4rem + env(safe-area-inset-bottom)); animation: up .3s cubic-bezier(.22,1,.36,1); margin-top: auto; }
   @keyframes up { from { transform: translateY(30px); opacity: 0; } }
-  .modal h2 { font-family: 'Noto Serif KR', serif; font-weight: 500; font-size: 18px; margin-bottom: 1.1rem; display: flex; align-items: center; }
+  .modal h2 { font-family: 'Noto Serif KR', serif; font-weight: 500; font-size: 18px; margin-bottom: .3rem; display: flex; align-items: center; }
   .modal h2 .x { margin-left: auto; background: none; border: none; color: var(--muted); font-size: 22px; cursor: pointer; line-height: 1; }
-  .fld-group { margin-bottom: 1.1rem; }
+  .modal .lead { font-size: 12.5px; color: var(--muted); line-height: 1.7; margin-bottom: 1.2rem; }
 </style>
 </head>
 <body>
 <header>
   <div class="header-inner">
     <div class="brand">
-      <span class="eyebrow">Museum Companion</span>
-      <h1>작품 해설</h1>
+      <span class="eyebrow">My Museum Companion</span>
+      <h1>나를 위한 작품 해설</h1>
     </div>
-    <button class="icon-btn" id="settingsBtn" aria-label="설정" hidden>
-      <svg viewBox="0 0 24 24"><path d="M19.14 12.94a7.49 7.49 0 0 0 .05-.94 7.49 7.49 0 0 0-.05-.94l2.03-1.58a.5.5 0 0 0 .12-.61l-1.92-3.32a.5.5 0 0 0-.59-.22l-2.39.96a7 7 0 0 0-1.62-.94l-.36-2.54a.49.49 0 0 0-.5-.42h-3.84a.49.49 0 0 0-.5.42l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96a.5.5 0 0 0-.59.22L2.74 8.87a.5.5 0 0 0 .12.61l2.03 1.58c-.03.31-.05.62-.05.94s.02.63.05.94l-2.03 1.58a.5.5 0 0 0-.12.61l1.92 3.32c.14.24.42.32.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.25.42.5.42h3.84c.25 0 .46-.18.5-.42l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.17.1.45.02.59-.22l1.92-3.32a.5.5 0 0 0-.12-.61zM12 15.5A3.5 3.5 0 1 1 12 8.5a3.5 3.5 0 0 1 0 7z"/></svg>
-    </button>
+    <div class="header-actions">
+      <button class="icon-btn" id="ctxBtn" aria-label="내 컨텍스트" hidden>
+        <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4.42 0-8 2.24-8 5v1h16v-1c0-2.76-3.58-5-8-5z"/></svg>
+      </button>
+      <button class="icon-btn" id="settingsBtn" aria-label="설정" hidden>
+        <svg viewBox="0 0 24 24"><path d="M19.14 12.94a7.49 7.49 0 0 0 .05-.94 7.49 7.49 0 0 0-.05-.94l2.03-1.58a.5.5 0 0 0 .12-.61l-1.92-3.32a.5.5 0 0 0-.59-.22l-2.39.96a7 7 0 0 0-1.62-.94l-.36-2.54a.49.49 0 0 0-.5-.42h-3.84a.49.49 0 0 0-.5.42l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96a.5.5 0 0 0-.59.22L2.74 8.87a.5.5 0 0 0 .12.61l2.03 1.58c-.03.31-.05.62-.05.94s.02.63.05.94l-2.03 1.58a.5.5 0 0 0-.12.61l1.92 3.32c.14.24.42.32.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.25.42.5.42h3.84c.25 0 .46-.18.5-.42l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.17.1.45.02.59-.22l1.92-3.32a.5.5 0 0 0-.12-.61zM12 15.5A3.5 3.5 0 1 1 12 8.5a3.5 3.5 0 0 1 0 7z"/></svg>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -173,23 +199,32 @@
   <!-- SETUP -->
   <section id="view-setup">
     <div class="hero-note">
-      <div class="big">직접 촬영하고, 해설을 듣다</div>
-      <p>미술관·박물관에서 작품을 촬영하면<br>AI가 작가·시대·의미를 해설하고 음성으로 들려드립니다.</p>
+      <div class="big">당신의 눈으로 보는 미술관</div>
+      <p>작품을 촬영하면, <b>당신의 관심사·전문성·관람 목적</b>에 맞춰<br>해설하고 당신만을 위한 인사이트를 제안합니다.</p>
     </div>
     <div class="panel">
       <h2>시작하기 · API 키 등록</h2>
-      <p class="desc">이 앱은 촬영한 사진을 <b>Claude 비전 AI</b>에 보내 해설을 생성합니다. 사용하려면 본인의 Anthropic API 키가 필요합니다. 키는 이 브라우저에만 저장되며, 요청은 Anthropic으로 직접 전송됩니다(서버를 거치지 않습니다).</p>
+      <p class="desc">이 앱은 촬영한 사진을 <b>Claude 비전 AI</b>에 보내 개인 맞춤 해설을 생성합니다. 본인의 Anthropic API 키가 필요하며, 키는 이 브라우저에만 저장됩니다(요청은 Anthropic으로 직접 전송).</p>
       <label class="fld" for="apiKey">Anthropic API Key</label>
       <input type="password" id="apiKey" placeholder="sk-ant-..." autocomplete="off" spellcheck="false">
       <div class="row">
-        <button class="btn btn-primary btn-block" id="saveKeyBtn">키 저장하고 시작</button>
+        <button class="btn btn-primary btn-block" id="saveKeyBtn">키 저장하고 계속</button>
       </div>
-      <p class="hint">키 발급: <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">console.anthropic.com</a> → API Keys. 사진 해설은 사용량만큼 본인 계정에 과금됩니다.</p>
+      <p class="hint">키 발급: <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">console.anthropic.com</a> → API Keys. 해설 생성은 사용량만큼 본인 계정에 과금됩니다.</p>
     </div>
   </section>
 
-  <!-- CAPTURE / HOME -->
+  <!-- HOME -->
   <section id="view-home" hidden>
+    <div class="ctx-card" id="ctxCard">
+      <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4.42 0-8 2.24-8 5v1h16v-1c0-2.76-3.58-5-8-5z"/></svg></div>
+      <div class="txt">
+        <div class="l">내 컨텍스트</div>
+        <div class="v" id="ctxSummary">설정하면 나에게 맞춘 해설을 받습니다</div>
+      </div>
+      <div class="arrow">›</div>
+    </div>
+
     <div class="capture-hero">
       <div class="capture-big" id="captureCard">
         <div class="cam-ic">
@@ -219,7 +254,7 @@
     <div class="hist" id="histList"></div>
   </section>
 
-  <!-- ANALYZING -->
+  <!-- LOADING -->
   <section id="view-loading" hidden>
     <div class="analyzing">
       <div class="preview"><img id="loadImg" alt="촬영한 작품"><div class="scan"></div></div>
@@ -241,6 +276,44 @@
     </div>
   </section>
 
+</div>
+
+<!-- CONTEXT MODAL -->
+<div class="modal-bg" id="ctxModal" hidden>
+  <div class="modal">
+    <h2>내 컨텍스트 <button class="x" id="closeCtx">✕</button></h2>
+    <p class="lead">당신에 대해 알려주시면, 해설의 깊이와 용어를 맞추고 작품을 당신의 관심사·일·삶과 연결한 <b>맞춤 인사이트</b>를 드립니다. 모두 선택 사항이며 이 브라우저에만 저장됩니다.</p>
+    <div class="fld-group">
+      <label class="fld" for="cField">분야 · 직업</label>
+      <input type="text" id="cField" placeholder="예: 건축가, 마케터, 학생, 개발자">
+    </div>
+    <div class="fld-group">
+      <label class="fld" for="cInterests">관심사</label>
+      <input type="text" id="cInterests" placeholder="예: 색채, 도시 공간, 역사, 브랜딩, 사진">
+    </div>
+    <div class="fld-group">
+      <label class="fld" for="cLevel">미술 지식 수준</label>
+      <select id="cLevel">
+        <option value="입문">입문 · 쉽고 친절하게</option>
+        <option value="애호가" selected>애호가 · 적당히 깊게</option>
+        <option value="전문가">전문가 · 심화·전문 용어 OK</option>
+      </select>
+    </div>
+    <div class="fld-group">
+      <label class="fld" for="cPurpose">오늘의 관람 목적 · 관점</label>
+      <input type="text" id="cPurpose" placeholder="예: 일에 영감 얻기, 아이에게 설명, 힐링, 특정 주제 탐구">
+    </div>
+    <div class="fld-group">
+      <label class="fld" for="cAbout">자유 메모 (나에 대해)</label>
+      <textarea id="cAbout" placeholder="예: 요즘 공간 브랜딩 프로젝트를 하고 있어요. 미니멀·절제된 미감을 좋아합니다."></textarea>
+    </div>
+    <div class="row">
+      <button class="btn btn-primary btn-block" id="saveCtxBtn">저장</button>
+    </div>
+    <div class="row">
+      <button class="btn btn-ghost btn-block" id="skipCtxBtn">나중에 하기</button>
+    </div>
+  </div>
 </div>
 
 <!-- SETTINGS MODAL -->
@@ -265,7 +338,7 @@
     <div class="row">
       <button class="btn btn-ghost btn-block" id="clearKeyBtn" style="color:var(--danger);border-color:rgba(217,138,106,.3)">API 키 삭제</button>
     </div>
-    <p class="hint">API 키와 관람 기록은 이 브라우저(localStorage)에만 저장됩니다.</p>
+    <p class="hint">API 키·컨텍스트·관람 기록은 모두 이 브라우저(localStorage)에만 저장됩니다.</p>
   </div>
 </div>
 
@@ -274,14 +347,13 @@
 const LS_KEY = "mc_api_key";
 const LS_MODEL = "mc_model";
 const LS_HIST = "mc_history";
+const LS_CTX = "mc_context";
 const API_URL = "https://api.anthropic.com/v1/messages";
 
 const $ = (id) => document.getElementById(id);
 const synth = window.speechSynthesis;
-
 let speaking = false;
 
-/* JSON schema for structured docent output */
 const SCHEMA = {
   type: "object",
   properties: {
@@ -295,23 +367,26 @@ const SCHEMA = {
     category: { type: "string" },
     summary:  { type: "string" },
     description: { type: "array", items: { type: "string" } },
+    insights:    { type: "array", items: { type: "string" } },
     highlights:  { type: "array", items: { type: "string" } }
   },
-  required: ["identified","confidence","title","artist","year","movement","medium","category","summary","description","highlights"],
+  required: ["identified","confidence","title","artist","year","movement","medium","category","summary","description","insights","highlights"],
   additionalProperties: false
 };
 
-const SYSTEM = `당신은 미술관·박물관의 전문 도슨트입니다. 관람객이 현장에서 촬영한 작품 사진을 보고, 오디오 가이드처럼 친절하고 깊이 있는 한국어 해설을 제공합니다.
+const SYSTEM = `당신은 관람객 한 사람을 위한 전담 도슨트입니다. 현장에서 촬영한 작품 사진과 '관람자 컨텍스트'를 함께 받아, 그 사람에게 꼭 맞춘 한국어 해설과 개인 인사이트를 제공합니다.
 
-지침:
-- 사진 속 작품(회화·조각·공예·유물·설치 등 무엇이든)을 살펴보고 가능한 한 특정 작품을 식별하세요.
-- 특정 작품·작가를 확신하면 identified=true, confidence를 high 또는 medium으로. 유명 작품이 아니거나 식별이 어려우면 identified=false, confidence=low로 하되, 그래도 보이는 것(양식·기법·주제·시대적 특징)을 바탕으로 충실히 해설하세요. 절대 사실을 지어내지 말고, 불확실하면 "…로 보입니다", "…양식의 특징이 나타납니다"처럼 표현하세요.
-- 값을 알 수 없으면 해당 필드에 "미상"을 넣으세요.
-- summary: 한 문장의 핵심 소개.
-- description: 3~4개 단락의 배열. 작품의 주제·구성, 기법과 표현, 역사·문화적 맥락, 감상 포인트를 이야기하듯 풀어주세요. 각 단락 120~200자.
-- highlights: 관람 시 주목할 감상 포인트 3~4개(각 한 줄).
-- category: 회화/조각/공예/사진/판화/유물/설치 등 분류.
-- 모든 텍스트는 한국어로.`;
+작품 식별:
+- 사진 속 작품(회화·조각·공예·유물·설치 등)을 살펴 가능한 한 특정 작품을 식별하세요.
+- 확신하면 identified=true, confidence는 high/medium. 식별이 어려우면 identified=false, confidence=low로 하되, 보이는 것(양식·기법·주제·시대 특징)을 바탕으로 충실히 해설하세요. 절대 사실을 지어내지 말고, 불확실하면 "…로 보입니다"처럼 표현하세요. 알 수 없는 값은 "미상".
+
+관람자 컨텍스트 반영(가장 중요):
+- 지식 수준에 맞추세요. 입문=쉬운 말과 비유, 전문 용어 최소화 / 애호가=균형 / 전문가=심화·전문 용어 허용, 통념을 넘어선 관점.
+- description은 3~4개 단락. 작품의 주제·구성, 기법, 역사·문화 맥락, 감상 포인트를 이야기하듯. 관람자의 관심사·목적과 자연스럽게 엮되 억지 연결은 피하세요. 각 단락 120~200자.
+- insights(핵심 차별점): 이 관람자만을 위한 인사이트 2~4개. 작품을 그 사람의 '분야·직업', '관심사', '오늘의 목적', '자유 메모'와 구체적으로 연결하세요. 예) 그의 일에 적용할 아이디어, 그의 관심 주제와의 공통점, 그를 위한 생각할 거리나 질문. 각 인사이트는 한두 문장으로 구체적이고 실질적으로. 컨텍스트가 비어 있으면, 호기심 많은 일반 관람객이 오늘 얻어갈 통찰로 채우세요.
+- highlights: 작품 자체에서 눈여겨볼 감상 포인트 3~4개(각 한 줄, 컨텍스트 무관한 일반 포인트).
+
+모든 텍스트는 한국어로.`;
 
 /* ---------------- view switching ---------------- */
 function show(view) {
@@ -319,8 +394,30 @@ function show(view) {
   stopSpeech();
   window.scrollTo(0, 0);
 }
-function hasKey() { return !!localStorage.getItem(LS_KEY); }
-function getModel() { return localStorage.getItem(LS_MODEL) || "claude-opus-4-8"; }
+const hasKey = () => !!localStorage.getItem(LS_KEY);
+const getModel = () => localStorage.getItem(LS_MODEL) || "claude-opus-4-8";
+
+/* ---------------- context ---------------- */
+function loadCtx() { try { return JSON.parse(localStorage.getItem(LS_CTX) || "{}"); } catch (_) { return {}; } }
+function ctxIsSet(c) { c = c || loadCtx(); return !!(c.field || c.interests || c.purpose || c.about || (c.level && c.level !== "애호가")); }
+function ctxSummaryText() {
+  const c = loadCtx();
+  if (!ctxIsSet(c)) return "설정하면 나에게 맞춘 해설을 받습니다";
+  const parts = [c.field, c.interests, c.purpose].filter(Boolean);
+  return (parts.join(" · ") || "맞춤 해설 켜짐") + (c.level ? ` · ${c.level}` : "");
+}
+function renderCtxSummary() { $("ctxSummary").textContent = ctxSummaryText(); }
+function ctxPromptBlock() {
+  const c = loadCtx();
+  const lines = [];
+  if (c.field) lines.push(`- 분야/직업: ${c.field}`);
+  if (c.interests) lines.push(`- 관심사: ${c.interests}`);
+  lines.push(`- 미술 지식 수준: ${c.level || "애호가"}`);
+  if (c.purpose) lines.push(`- 오늘의 관람 목적/관점: ${c.purpose}`);
+  if (c.about) lines.push(`- 자유 메모: ${c.about}`);
+  if (!ctxIsSet(c)) return "관람자 컨텍스트: 제공되지 않음 — 호기심 많은 일반 관람객 기준으로 작성하세요.";
+  return "관람자 컨텍스트:\n" + lines.join("\n");
+}
 
 /* ---------------- image handling ---------------- */
 function fileToResizedJpeg(file, maxEdge) {
@@ -346,15 +443,16 @@ const stripB64 = (dataUrl) => dataUrl.split(",")[1];
 /* ---------------- Claude Vision call ---------------- */
 async function analyze(dataUrl) {
   const key = localStorage.getItem(LS_KEY);
+  const userText = `${ctxPromptBlock()}\n\n위 관람자를 위해 이 작품을 해설하고, 이 사람만을 위한 인사이트를 제안해주세요.`;
   const body = {
     model: getModel(),
-    max_tokens: 2048,
+    max_tokens: 2200,
     system: SYSTEM,
     messages: [{
       role: "user",
       content: [
         { type: "image", source: { type: "base64", media_type: "image/jpeg", data: stripB64(dataUrl) } },
-        { type: "text", text: "이 작품을 도슨트처럼 해설해주세요." }
+        { type: "text", text: userText }
       ]
     }],
     output_config: { format: { type: "json_schema", schema: SCHEMA } }
@@ -385,25 +483,22 @@ async function analyze(dataUrl) {
   }
 
   const data = await resp.json();
-  if (data.stop_reason === "refusal") {
-    throw new Error("이 이미지에 대한 해설을 제공할 수 없습니다. 다른 작품을 촬영해보세요.");
-  }
+  if (data.stop_reason === "refusal") throw new Error("이 이미지에 대한 해설을 제공할 수 없습니다. 다른 작품을 촬영해보세요.");
   const textBlock = (data.content || []).find(b => b.type === "text");
   if (!textBlock) throw new Error("해설을 받지 못했습니다. 다시 시도해주세요.");
-  try {
-    return JSON.parse(textBlock.text);
-  } catch (_) {
-    // Fallback: show raw text
+  try { return JSON.parse(textBlock.text); }
+  catch (_) {
     return { identified: false, confidence: "low", title: "작품", artist: "미상", year: "미상",
-      movement: "미상", medium: "미상", category: "미상",
-      summary: "", description: [textBlock.text], highlights: [] };
+      movement: "미상", medium: "미상", category: "미상", summary: "",
+      description: [textBlock.text], insights: [], highlights: [] };
   }
 }
 
-/* ---------------- render result ---------------- */
-function renderResult(art, imgUrl) {
+/* ---------------- render ---------------- */
+function renderResult(art, imgUrl, wasPersonalized) {
   $("resImg").src = imgUrl;
   $("resultErr").innerHTML = "";
+  const personalized = wasPersonalized == null ? ctxIsSet() : wasPersonalized;
   const confLabel = { high: "높은 신뢰도", medium: "추정", low: "참고용 해설" }[art.confidence] || "참고용 해설";
   const val = (x) => (x && x !== "미상") ? x : "—";
   const metaRows = [
@@ -413,7 +508,10 @@ function renderResult(art, imgUrl) {
   ].filter(([k,v]) => v);
 
   $("resBody").innerHTML = `
-    <div class="badge conf-${art.confidence}"><span class="dot"></span>${art.identified ? "작품 식별됨" : "식별 추정"} · ${confLabel}</div>
+    <div class="badge-row">
+      <span class="badge conf-${art.confidence}"><span class="dot"></span>${art.identified ? "작품 식별됨" : "식별 추정"} · ${confLabel}</span>
+      ${personalized ? `<span class="badge badge-you"><span class="dot"></span>나에게 맞춤</span>` : ""}
+    </div>
     <div class="r-title">${esc(art.title || "작품")}</div>
     <div class="r-sub">${esc(val(art.artist))}${art.year && art.year!=="미상" ? " · " + esc(art.year) : ""}</div>
     <div class="meta-grid">
@@ -430,6 +528,12 @@ function renderResult(art, imgUrl) {
       ${art.summary ? `<p class="summary">${esc(art.summary)}</p>` : ""}
       ${(art.description || []).map(p => `<p>${esc(p)}</p>`).join("")}
     </div>
+    ${(art.insights && art.insights.length) ? `
+    <div class="insights">
+      <h3><svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>당신을 위한 인사이트</h3>
+      <div class="sub">${personalized ? "당신의 컨텍스트에 맞춰 연결했습니다" : "컨텍스트를 설정하면 더 개인화됩니다"}</div>
+      <ul>${art.insights.map(x => `<li>${esc(x)}</li>`).join("")}</ul>
+    </div>` : ""}
     ${(art.highlights && art.highlights.length) ? `
     <div class="highlights">
       <h3>감상 포인트</h3>
@@ -440,17 +544,18 @@ function renderResult(art, imgUrl) {
   setupAudio(art);
   show("result");
 }
-
 function esc(s) { const d = document.createElement("div"); d.textContent = s == null ? "" : String(s); return d.innerHTML; }
 function stripTags(s) { return String(s || "").replace(/<[^>]+>/g, ""); }
 
-/* ---------------- audio (TTS) ---------------- */
+/* ---------------- audio ---------------- */
 function stopSpeech() { if (synth) synth.cancel(); speaking = false; }
 function setupAudio(art) {
   const btn = $("audioBtn"), label = $("audioLabel"), note = $("audioNote");
   if (!synth) { btn.disabled = true; btn.style.opacity = ".5"; note.textContent = "이 브라우저는 음성 안내를 지원하지 않습니다"; return; }
   const text = [art.title, art.artist && art.artist !== "미상" ? art.artist : "", art.summary,
-    ...(art.description || []), (art.highlights || []).join(". ")].filter(Boolean).map(stripTags).join(". ");
+    ...(art.description || []),
+    (art.insights && art.insights.length) ? "당신을 위한 인사이트. " + art.insights.join(". ") : "",
+    (art.highlights || []).join(". ")].filter(Boolean).map(stripTags).join(". ");
   const idle = () => { speaking = false; label.textContent = "오디오 가이드 듣기"; };
   btn.onclick = () => {
     if (speaking) { stopSpeech(); idle(); return; }
@@ -467,9 +572,9 @@ if (synth) synth.onvoiceschanged = () => {};
 
 /* ---------------- history ---------------- */
 function loadHist() { try { return JSON.parse(localStorage.getItem(LS_HIST) || "[]"); } catch (_) { return []; } }
-function saveHistItem(art, thumb) {
+function saveHistItem(art, thumb, personalized) {
   const list = loadHist();
-  list.unshift({ id: Date.now(), title: art.title || "작품", artist: art.artist || "미상", thumb, art, ts: Date.now() });
+  list.unshift({ id: Date.now(), title: art.title || "작품", artist: art.artist || "미상", thumb, art, personalized, ts: Date.now() });
   localStorage.setItem(LS_HIST, JSON.stringify(list.slice(0, 30)));
   renderHist();
 }
@@ -489,7 +594,7 @@ function renderHist() {
   el.querySelectorAll(".hist-item").forEach(node => {
     node.onclick = () => {
       const it = loadHist().find(x => x.id == node.dataset.id);
-      if (it) renderResult(it.art, it.thumb);
+      if (it) renderResult(it.art, it.thumb, it.personalized);
     };
   });
 }
@@ -504,19 +609,38 @@ async function handleFile(file) {
   try {
     const full = await fileToResizedJpeg(file, 1200);
     const thumb = await fileToResizedJpeg(file, 240);
+    const personalized = ctxIsSet();
     $("loadImg").src = full;
-    $("loadStatus").textContent = "작품을 살펴보는 중…";
+    $("loadStatus").textContent = personalized ? "당신의 관점으로 작품을 살펴보는 중…" : "작품을 살펴보는 중…";
     show("loading");
-    setTimeout(() => { if (!$("view-loading").hidden) $("loadStatus").textContent = "해설을 작성하는 중…"; }, 4000);
+    setTimeout(() => { if (!$("view-loading").hidden) $("loadStatus").textContent = "맞춤 해설과 인사이트를 작성하는 중…"; }, 4000);
     const art = await analyze(full);
-    saveHistItem(art, thumb);
-    renderResult(art, full);
+    saveHistItem(art, thumb, personalized);
+    renderResult(art, full, personalized);
   } catch (err) {
     $("resImg").src = "";
     $("resBody").innerHTML = "";
     $("resultErr").innerHTML = `<div class="alert"><b>해설을 가져오지 못했습니다.</b><br>${esc(err.message)}</div>`;
     show("result");
   }
+}
+
+/* ---------------- context modal ---------------- */
+function openCtx() {
+  const c = loadCtx();
+  $("cField").value = c.field || ""; $("cInterests").value = c.interests || "";
+  $("cLevel").value = c.level || "애호가"; $("cPurpose").value = c.purpose || "";
+  $("cAbout").value = c.about || "";
+  $("ctxModal").hidden = false;
+}
+function closeCtx() { $("ctxModal").hidden = true; }
+function saveCtx() {
+  const c = {
+    field: $("cField").value.trim(), interests: $("cInterests").value.trim(),
+    level: $("cLevel").value, purpose: $("cPurpose").value.trim(), about: $("cAbout").value.trim()
+  };
+  localStorage.setItem(LS_CTX, JSON.stringify(c));
+  renderCtxSummary(); closeCtx();
 }
 
 /* ---------------- settings ---------------- */
@@ -527,9 +651,9 @@ function openSettings() {
 }
 function closeSettings() { $("settingsModal").hidden = true; }
 
-/* ---------------- init & events ---------------- */
+/* ---------------- init ---------------- */
 function boot() {
-  if (hasKey()) { $("settingsBtn").hidden = false; renderHist(); show("home"); }
+  if (hasKey()) { $("ctxBtn").hidden = false; $("settingsBtn").hidden = false; renderCtxSummary(); renderHist(); show("home"); }
   else { show("setup"); }
 }
 
@@ -537,8 +661,9 @@ $("saveKeyBtn").onclick = () => {
   const k = $("apiKey").value.trim();
   if (!k) { $("apiKey").focus(); return; }
   localStorage.setItem(LS_KEY, k);
-  $("settingsBtn").hidden = false;
-  renderHist(); show("home");
+  $("ctxBtn").hidden = false; $("settingsBtn").hidden = false;
+  renderCtxSummary(); renderHist(); show("home");
+  if (!ctxIsSet()) openCtx();   // onboard personalization
 };
 $("apiKey").addEventListener("keydown", e => { if (e.key === "Enter") $("saveKeyBtn").click(); });
 
@@ -548,6 +673,13 @@ $("galleryBtn").onclick = () => $("fileGallery").click();
 $("fileCamera").onchange = (e) => { handleFile(e.target.files[0]); e.target.value = ""; };
 $("fileGallery").onchange = (e) => { handleFile(e.target.files[0]); e.target.value = ""; };
 $("backBtn").onclick = () => show("home");
+
+$("ctxCard").onclick = openCtx;
+$("ctxBtn").onclick = openCtx;
+$("closeCtx").onclick = closeCtx;
+$("skipCtxBtn").onclick = closeCtx;
+$("saveCtxBtn").onclick = saveCtx;
+$("ctxModal").onclick = (e) => { if (e.target === $("ctxModal")) closeCtx(); };
 
 $("settingsBtn").onclick = openSettings;
 $("closeSettings").onclick = closeSettings;
@@ -559,9 +691,9 @@ $("saveSettingsBtn").onclick = () => {
   closeSettings();
 };
 $("clearKeyBtn").onclick = () => {
-  if (confirm("API 키를 삭제할까요? 관람 기록은 유지됩니다.")) {
+  if (confirm("API 키를 삭제할까요? 컨텍스트와 관람 기록은 유지됩니다.")) {
     localStorage.removeItem(LS_KEY);
-    closeSettings(); $("settingsBtn").hidden = true; show("setup");
+    closeSettings(); $("ctxBtn").hidden = true; $("settingsBtn").hidden = true; show("setup");
   }
 };
 $("clearHistBtn").onclick = () => {
