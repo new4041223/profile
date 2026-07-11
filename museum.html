@@ -2,11 +2,11 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>작품 해설 · Artwork Guide</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>작품 해설 · 뮤지엄 컴패니언</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Serif+KR:wght@300;400;500;600&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Noto+Serif+KR:wght@400;500;600&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -15,650 +15,560 @@
     --surface: #221d18;
     --surface-2: #2a241e;
     --border: rgba(255,255,255,0.08);
-    --border-strong: rgba(255,255,255,0.14);
+    --border-strong: rgba(255,255,255,0.15);
     --text: #f3ede3;
     --muted: rgba(243,237,227,0.55);
     --faint: rgba(243,237,227,0.32);
     --accent: #c9a86a;
     --accent-dim: rgba(201,168,106,0.12);
+    --danger: #d98a6a;
+    --ok: #8fbf8f;
   }
   html, body { min-height: 100%; }
   body {
-    background: radial-gradient(120% 80% at 50% -10%, #23201b 0%, var(--bg) 55%);
+    background: radial-gradient(120% 70% at 50% -10%, #23201b 0%, var(--bg) 55%);
     color: var(--text);
     font-family: 'Noto Sans KR', sans-serif;
     font-weight: 300;
     -webkit-font-smoothing: antialiased;
     line-height: 1.6;
-    padding-bottom: 4rem;
+    min-height: 100svh;
+    padding: env(safe-area-inset-top) 0 calc(env(safe-area-inset-bottom) + 1rem);
   }
+  .wrap { max-width: 560px; margin: 0 auto; padding: 0 1.15rem; }
 
-  /* ---------- Header ---------- */
-  header {
-    position: sticky; top: 0; z-index: 20;
-    background: rgba(20,17,14,0.82);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--border);
-  }
-  .header-inner { max-width: 1120px; margin: 0 auto; padding: 1.15rem 1.5rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
-  .brand { display: flex; flex-direction: column; line-height: 1.25; }
-  .brand .eyebrow { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
-  .brand h1 { font-family: 'Noto Serif KR', serif; font-weight: 500; font-size: 20px; letter-spacing: 0.01em; }
-  .search-wrap { margin-left: auto; position: relative; }
-  .search-wrap svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 15px; height: 15px; fill: var(--faint); }
-  #search {
-    width: 220px; max-width: 46vw; background: var(--surface); border: 1px solid var(--border);
-    border-radius: 999px; color: var(--text); font-family: inherit; font-size: 13px; font-weight: 300;
-    padding: 9px 16px 9px 34px; outline: none; transition: border-color .2s, width .2s;
-  }
-  #search::placeholder { color: var(--faint); }
-  #search:focus { border-color: var(--border-strong); }
+  /* Header */
+  header { position: sticky; top: 0; z-index: 20; background: rgba(20,17,14,0.82); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+  .header-inner { max-width: 560px; margin: 0 auto; padding: 0.9rem 1.15rem; display: flex; align-items: center; gap: .8rem; }
+  .brand { display: flex; flex-direction: column; line-height: 1.2; }
+  .brand .eyebrow { font-size: 9.5px; letter-spacing: .26em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+  .brand h1 { font-family: 'Noto Serif KR', serif; font-weight: 500; font-size: 18px; }
+  .icon-btn { margin-left: auto; width: 40px; height: 40px; border-radius: 50%; background: var(--surface); border: 1px solid var(--border); color: var(--text); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background .2s; }
+  .icon-btn:hover { background: var(--surface-2); }
+  .icon-btn svg { width: 19px; height: 19px; fill: currentColor; }
 
-  /* ---------- Filters ---------- */
-  .filters { max-width: 1120px; margin: 1.6rem auto 0; padding: 0 1.5rem; display: flex; gap: 8px; flex-wrap: wrap; }
-  .chip {
-    font-family: inherit; font-size: 12.5px; font-weight: 400; letter-spacing: 0.02em;
-    color: var(--muted); background: transparent; border: 1px solid var(--border);
-    border-radius: 999px; padding: 7px 15px; cursor: pointer; transition: all .18s;
-  }
-  .chip:hover { color: var(--text); border-color: var(--border-strong); }
-  .chip.active { color: var(--bg); background: var(--accent); border-color: var(--accent); font-weight: 500; }
+  section { padding-top: 1.4rem; animation: fade .4s ease; }
+  @keyframes fade { from { opacity: 0; transform: translateY(8px); } }
+  [hidden] { display: none !important; }
 
-  .count { max-width: 1120px; margin: 1.1rem auto 0; padding: 0 1.5rem; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); }
+  /* Setup / API key */
+  .hero-note { text-align: center; margin-bottom: 1.6rem; }
+  .hero-note .big { font-family: 'Cormorant Garamond', serif; font-size: 30px; color: var(--accent); letter-spacing: .02em; }
+  .hero-note p { font-size: 13.5px; color: var(--muted); margin-top: .5rem; }
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 1.4rem 1.3rem; margin-bottom: 1.1rem; }
+  .panel h2 { font-family: 'Noto Serif KR', serif; font-weight: 500; font-size: 16px; margin-bottom: .5rem; }
+  .panel .desc { font-size: 12.5px; color: var(--muted); line-height: 1.75; margin-bottom: 1rem; }
+  label.fld { display: block; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); margin-bottom: .5rem; }
+  input[type="password"], input[type="text"], select {
+    width: 100%; background: var(--bg-2); border: 1px solid var(--border); border-radius: 11px;
+    color: var(--text); font-family: inherit; font-size: 14px; padding: 12px 14px; outline: none; transition: border-color .2s;
+  }
+  input:focus, select:focus { border-color: var(--border-strong); }
+  select { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23c9a86a'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 40px; }
+  .row { display: flex; gap: .6rem; margin-top: .9rem; }
+  .hint { font-size: 11.5px; color: var(--faint); margin-top: .7rem; line-height: 1.7; }
+  .hint a { color: var(--accent); text-decoration: none; }
+  .hint a:hover { text-decoration: underline; }
 
-  /* ---------- Grid ---------- */
-  .grid {
-    max-width: 1120px; margin: 0.9rem auto 0; padding: 0 1.5rem;
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.4rem;
-  }
-  .card {
-    background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
-    overflow: hidden; cursor: pointer; display: flex; flex-direction: column;
-    transition: transform .25s cubic-bezier(.22,1,.36,1), border-color .25s, box-shadow .25s;
-    animation: fade .5s ease backwards;
-  }
-  .card:hover { transform: translateY(-4px); border-color: var(--border-strong); box-shadow: 0 18px 40px -22px rgba(0,0,0,0.8); }
-  @keyframes fade { from { opacity: 0; transform: translateY(14px); } }
-  .thumb { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--bg-2); }
-  .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s cubic-bezier(.22,1,.36,1); }
-  .card:hover .thumb img { transform: scale(1.06); }
-  .thumb .fallback {
-    position: absolute; inset: 0; display: none; align-items: center; justify-content: center; text-align: center;
-    padding: 1rem; font-family: 'Cormorant Garamond', serif; font-size: 15px; color: rgba(255,255,255,0.7);
-  }
-  .cat-tag {
-    position: absolute; top: 10px; left: 10px; z-index: 2;
-    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text);
-    background: rgba(20,17,14,0.7); backdrop-filter: blur(6px); border: 1px solid var(--border);
-    padding: 4px 9px; border-radius: 999px;
-  }
-  .card-body { padding: 0.95rem 1.05rem 1.1rem; display: flex; flex-direction: column; gap: 4px; flex: 1; }
-  .card-body .t { font-family: 'Noto Serif KR', serif; font-weight: 500; font-size: 15.5px; line-height: 1.35; }
-  .card-body .a { font-size: 12.5px; color: var(--muted); }
-  .card-body .y { margin-top: auto; padding-top: 8px; font-size: 11px; letter-spacing: 0.06em; color: var(--faint); }
+  .btn { font-family: inherit; font-size: 14px; font-weight: 500; border: none; border-radius: 12px; padding: 13px 18px; cursor: pointer; transition: filter .15s, transform .1s, background .2s, border-color .2s; display: inline-flex; align-items: center; justify-content: center; gap: 9px; }
+  .btn svg { width: 18px; height: 18px; fill: currentColor; }
+  .btn-primary { background: var(--accent); color: #1a140c; }
+  .btn-primary:hover { filter: brightness(1.07); }
+  .btn-primary:active { transform: scale(.98); }
+  .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .btn-ghost:hover { background: var(--surface-2); border-color: var(--border-strong); }
+  .btn-block { width: 100%; }
+  .btn[disabled] { opacity: .5; cursor: not-allowed; }
 
-  .empty { max-width: 1120px; margin: 3rem auto; padding: 0 1.5rem; text-align: center; color: var(--muted); font-size: 14px; }
+  /* Capture screen */
+  .capture-hero { text-align: center; padding: 1.2rem 0 .4rem; }
+  .capture-big { position: relative; width: 100%; aspect-ratio: 1/1; max-width: 300px; margin: 0 auto 1.3rem; border-radius: 24px; border: 1.5px dashed rgba(201,168,106,0.4); background: linear-gradient(160deg, var(--surface), var(--bg-2)); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .8rem; cursor: pointer; transition: border-color .2s, transform .12s; }
+  .capture-big:hover { border-color: var(--accent); }
+  .capture-big:active { transform: scale(.985); }
+  .capture-big .cam-ic { width: 64px; height: 64px; border-radius: 50%; background: var(--accent-dim); display: flex; align-items: center; justify-content: center; }
+  .capture-big .cam-ic svg { width: 30px; height: 30px; fill: var(--accent); }
+  .capture-big .t { font-family: 'Noto Serif KR', serif; font-weight: 500; font-size: 17px; }
+  .capture-big .s { font-size: 12px; color: var(--muted); }
+  .capture-actions { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; }
 
-  /* ---------- Detail overlay ---------- */
-  .overlay {
-    position: fixed; inset: 0; z-index: 40; background: rgba(10,8,6,0.72); backdrop-filter: blur(8px);
-    display: none; align-items: flex-start; justify-content: center; overflow-y: auto; padding: 3vh 1.2rem;
-  }
-  .overlay.open { display: flex; animation: ovin .25s ease; }
-  @keyframes ovin { from { opacity: 0; } }
-  .detail {
-    position: relative; width: 100%; max-width: 820px; background: var(--bg-2);
-    border: 1px solid var(--border-strong); border-radius: 18px; overflow: hidden;
-    animation: rise .4s cubic-bezier(.22,1,.36,1);
-  }
-  @keyframes rise { from { opacity: 0; transform: translateY(24px); } }
-  .detail-hero { position: relative; width: 100%; background: #0d0b09; }
-  .detail-hero img { width: 100%; max-height: 60vh; object-fit: contain; display: block; }
-  .close {
-    position: absolute; top: 12px; right: 12px; z-index: 3; width: 38px; height: 38px; border-radius: 50%;
-    background: rgba(20,17,14,0.7); backdrop-filter: blur(6px); border: 1px solid var(--border);
-    color: var(--text); font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center;
-    transition: background .2s;
-  }
-  .close:hover { background: rgba(20,17,14,0.95); }
-  .nav-btn {
-    position: absolute; top: 50%; transform: translateY(-50%); z-index: 3; width: 42px; height: 42px; border-radius: 50%;
-    background: rgba(20,17,14,0.6); backdrop-filter: blur(6px); border: 1px solid var(--border);
-    color: var(--text); font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center;
-    transition: background .2s, opacity .2s;
-  }
-  .nav-btn:hover { background: rgba(20,17,14,0.92); }
-  .nav-btn.prev { left: 12px; }
-  .nav-btn.next { right: 12px; }
-  .detail-body { padding: 1.8rem 2rem 2.2rem; }
-  .detail-cat { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
-  .detail-title { font-family: 'Noto Serif KR', serif; font-weight: 600; font-size: 26px; line-height: 1.3; margin-top: 6px; }
-  .detail-sub { font-size: 14px; color: var(--muted); margin-top: 6px; }
-  .meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin: 1.5rem 0; }
-  .meta div { background: var(--surface); padding: 12px 14px; }
-  .meta .k { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); margin-bottom: 3px; }
-  .meta .v { font-size: 13.5px; color: var(--text); font-weight: 400; }
-  .audio-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 1.6rem; }
-  .audio-btn {
-    display: inline-flex; align-items: center; gap: 9px; font-family: inherit; font-size: 13.5px; font-weight: 500;
-    color: var(--bg); background: var(--accent); border: none; border-radius: 999px; padding: 10px 18px; cursor: pointer;
-    transition: filter .2s, transform .1s;
-  }
-  .audio-btn:hover { filter: brightness(1.08); }
-  .audio-btn:active { transform: scale(.97); }
-  .audio-btn svg { width: 15px; height: 15px; fill: currentColor; }
+  .section-label { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); margin: 1.9rem 0 .8rem; display: flex; align-items: center; justify-content: space-between; }
+  .section-label button { background: none; border: none; color: var(--accent); font-family: inherit; font-size: 11px; cursor: pointer; }
+
+  /* History list */
+  .hist { display: flex; flex-direction: column; gap: .6rem; }
+  .hist-item { display: flex; gap: .8rem; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 13px; padding: .55rem; cursor: pointer; transition: border-color .2s, transform .12s; }
+  .hist-item:hover { border-color: var(--border-strong); transform: translateY(-1px); }
+  .hist-item img { width: 56px; height: 56px; border-radius: 9px; object-fit: cover; flex-shrink: 0; background: var(--bg-2); }
+  .hist-item .meta { flex: 1; min-width: 0; }
+  .hist-item .meta .t { font-family: 'Noto Serif KR', serif; font-weight: 500; font-size: 14.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hist-item .meta .a { font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hist-item .meta .d { font-size: 10.5px; color: var(--faint); margin-top: 2px; }
+  .empty { text-align: center; color: var(--faint); font-size: 13px; padding: 1.5rem 0; }
+
+  /* Analyzing */
+  .analyzing { text-align: center; padding: 1rem 0; }
+  .analyzing .preview { width: 100%; max-width: 340px; margin: 0 auto 1.4rem; border-radius: 18px; overflow: hidden; border: 1px solid var(--border); position: relative; }
+  .analyzing .preview img { width: 100%; display: block; }
+  .scan { position: absolute; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, var(--accent), transparent); animation: scan 1.8s ease-in-out infinite; }
+  @keyframes scan { 0%{top:2%;opacity:.3} 50%{top:96%;opacity:1} 100%{top:2%;opacity:.3} }
+  .spinner { width: 26px; height: 26px; border: 2.5px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .8s linear infinite; margin: 0 auto .9rem; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .analyzing .status { font-size: 14px; color: var(--muted); }
+
+  /* Result */
+  .result-hero { width: 100%; border-radius: 18px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 1.3rem; background: #0d0b09; }
+  .result-hero img { width: 100%; max-height: 52vh; object-fit: contain; display: block; }
+  .badge { display: inline-flex; align-items: center; gap: 6px; font-size: 10.5px; letter-spacing: .04em; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--border); color: var(--muted); margin-bottom: .6rem; }
+  .badge .dot { width: 7px; height: 7px; border-radius: 50%; }
+  .conf-high .dot { background: var(--ok); } .conf-high { color: var(--ok); border-color: rgba(143,191,143,.3); }
+  .conf-medium .dot { background: var(--accent); } .conf-medium { color: var(--accent); border-color: rgba(201,168,106,.3); }
+  .conf-low .dot { background: var(--danger); } .conf-low { color: var(--danger); border-color: rgba(217,138,106,.3); }
+  .r-title { font-family: 'Noto Serif KR', serif; font-weight: 600; font-size: 24px; line-height: 1.3; }
+  .r-sub { font-size: 13.5px; color: var(--muted); margin-top: 5px; }
+  .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin: 1.3rem 0; }
+  .meta-grid div { background: var(--surface); padding: 11px 13px; }
+  .meta-grid .k { font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); margin-bottom: 3px; }
+  .meta-grid .v { font-size: 13px; }
+  .audio-bar { display: flex; align-items: center; gap: 11px; margin: 1.4rem 0; }
+  .audio-btn { display: inline-flex; align-items: center; gap: 9px; font-family: inherit; font-size: 13.5px; font-weight: 500; color: #1a140c; background: var(--accent); border: none; border-radius: 999px; padding: 11px 20px; cursor: pointer; transition: filter .15s, transform .1s; }
+  .audio-btn:hover { filter: brightness(1.08); } .audio-btn:active { transform: scale(.97); }
+  .audio-btn svg { width: 16px; height: 16px; fill: currentColor; }
   .audio-note { font-size: 11.5px; color: var(--faint); }
-  .desc p { font-size: 15px; line-height: 1.95; color: rgba(243,237,227,0.85); margin-bottom: 1.05rem; font-weight: 300; }
-  .desc p:last-child { margin-bottom: 0; }
-  .desc strong { color: var(--accent); font-weight: 500; }
-  .detail-footer { margin-top: 1.8rem; padding-top: 1.2rem; border-top: 1px solid var(--border); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); }
+  .desc p { font-size: 15px; line-height: 1.95; color: rgba(243,237,227,.86); margin-bottom: 1rem; font-weight: 300; }
+  .desc p.summary { font-size: 15.5px; color: var(--text); border-left: 2px solid var(--accent); padding-left: 14px; }
+  .highlights { margin: 1.4rem 0; }
+  .highlights h3 { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); margin-bottom: .7rem; }
+  .highlights ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
+  .highlights li { font-size: 13.5px; color: var(--muted); padding-left: 20px; position: relative; line-height: 1.7; }
+  .highlights li::before { content: '✦'; position: absolute; left: 0; color: var(--accent); font-size: 11px; top: 2px; }
+  .disclaimer { font-size: 11px; color: var(--faint); line-height: 1.7; margin-top: 1.6rem; padding-top: 1rem; border-top: 1px solid var(--border); }
 
-  footer.page-footer { max-width: 1120px; margin: 3.5rem auto 0; padding: 2rem 1.5rem 0; border-top: 1px solid var(--border); text-align: center; font-size: 11.5px; letter-spacing: 0.1em; color: var(--faint); }
+  .alert { background: rgba(217,138,106,0.1); border: 1px solid rgba(217,138,106,0.3); color: var(--danger); border-radius: 12px; padding: 12px 15px; font-size: 13px; line-height: 1.7; margin-bottom: 1rem; }
+  .alert b { font-weight: 500; }
 
-  @media (max-width: 560px) {
-    .header-inner { padding: 1rem 1.1rem; }
-    .brand h1 { font-size: 17px; }
-    #search { width: 150px; }
-    .grid { padding: 0 1.1rem; gap: 1.1rem; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
-    .filters, .count { padding: 0 1.1rem; }
-    .detail-body { padding: 1.4rem 1.3rem 1.8rem; }
-    .detail-title { font-size: 22px; }
-    .detail-hero img { max-height: 48vh; }
-  }
+  /* Modal (settings) */
+  .modal-bg { position: fixed; inset: 0; z-index: 50; background: rgba(10,8,6,.7); backdrop-filter: blur(6px); display: flex; align-items: flex-end; justify-content: center; padding: 0; }
+  .modal { width: 100%; max-width: 560px; background: var(--bg-2); border-top: 1px solid var(--border-strong); border-radius: 20px 20px 0 0; padding: 1.4rem 1.2rem calc(1.4rem + env(safe-area-inset-bottom)); animation: up .3s cubic-bezier(.22,1,.36,1); }
+  @keyframes up { from { transform: translateY(30px); opacity: 0; } }
+  .modal h2 { font-family: 'Noto Serif KR', serif; font-weight: 500; font-size: 18px; margin-bottom: 1.1rem; display: flex; align-items: center; }
+  .modal h2 .x { margin-left: auto; background: none; border: none; color: var(--muted); font-size: 22px; cursor: pointer; line-height: 1; }
+  .fld-group { margin-bottom: 1.1rem; }
 </style>
 </head>
 <body>
 <header>
   <div class="header-inner">
     <div class="brand">
-      <span class="eyebrow">Artwork Guide</span>
-      <h1>소장품 작품 해설</h1>
+      <span class="eyebrow">Museum Companion</span>
+      <h1>작품 해설</h1>
     </div>
-    <div class="search-wrap">
-      <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg>
-      <input id="search" type="search" placeholder="작품·작가 검색" autocomplete="off" aria-label="작품 검색">
-    </div>
+    <button class="icon-btn" id="settingsBtn" aria-label="설정" hidden>
+      <svg viewBox="0 0 24 24"><path d="M19.14 12.94a7.49 7.49 0 0 0 .05-.94 7.49 7.49 0 0 0-.05-.94l2.03-1.58a.5.5 0 0 0 .12-.61l-1.92-3.32a.5.5 0 0 0-.59-.22l-2.39.96a7 7 0 0 0-1.62-.94l-.36-2.54a.49.49 0 0 0-.5-.42h-3.84a.49.49 0 0 0-.5.42l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96a.5.5 0 0 0-.59.22L2.74 8.87a.5.5 0 0 0 .12.61l2.03 1.58c-.03.31-.05.62-.05.94s.02.63.05.94l-2.03 1.58a.5.5 0 0 0-.12.61l1.92 3.32c.14.24.42.32.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.25.42.5.42h3.84c.25 0 .46-.18.5-.42l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.17.1.45.02.59-.22l1.92-3.32a.5.5 0 0 0-.12-.61zM12 15.5A3.5 3.5 0 1 1 12 8.5a3.5 3.5 0 0 1 0 7z"/></svg>
+    </button>
   </div>
 </header>
 
-<nav class="filters" id="filters" aria-label="분류 필터"></nav>
-<p class="count" id="count"></p>
-<main class="grid" id="grid" aria-live="polite"></main>
-<p class="empty" id="empty" style="display:none;">검색 결과가 없습니다.</p>
+<div class="wrap">
 
-<footer class="page-footer">
-  소장품 작품 해설 · 오디오 가이드 지원 · 모든 이미지는 퍼블릭 도메인
-</footer>
+  <!-- SETUP -->
+  <section id="view-setup">
+    <div class="hero-note">
+      <div class="big">직접 촬영하고, 해설을 듣다</div>
+      <p>미술관·박물관에서 작품을 촬영하면<br>AI가 작가·시대·의미를 해설하고 음성으로 들려드립니다.</p>
+    </div>
+    <div class="panel">
+      <h2>시작하기 · API 키 등록</h2>
+      <p class="desc">이 앱은 촬영한 사진을 <b>Claude 비전 AI</b>에 보내 해설을 생성합니다. 사용하려면 본인의 Anthropic API 키가 필요합니다. 키는 이 브라우저에만 저장되며, 요청은 Anthropic으로 직접 전송됩니다(서버를 거치지 않습니다).</p>
+      <label class="fld" for="apiKey">Anthropic API Key</label>
+      <input type="password" id="apiKey" placeholder="sk-ant-..." autocomplete="off" spellcheck="false">
+      <div class="row">
+        <button class="btn btn-primary btn-block" id="saveKeyBtn">키 저장하고 시작</button>
+      </div>
+      <p class="hint">키 발급: <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">console.anthropic.com</a> → API Keys. 사진 해설은 사용량만큼 본인 계정에 과금됩니다.</p>
+    </div>
+  </section>
 
-<!-- Detail overlay -->
-<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="d-title">
-  <article class="detail" id="detail"></article>
+  <!-- CAPTURE / HOME -->
+  <section id="view-home" hidden>
+    <div class="capture-hero">
+      <div class="capture-big" id="captureCard">
+        <div class="cam-ic">
+          <svg viewBox="0 0 24 24"><path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4zM9 2l-1.83 2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-3.17L15 2H9zm3 15a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/></svg>
+        </div>
+        <div class="t">작품 촬영하기</div>
+        <div class="s">눌러서 카메라를 여세요</div>
+      </div>
+      <div class="capture-actions">
+        <button class="btn btn-ghost" id="cameraBtn">
+          <svg viewBox="0 0 24 24"><path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4zM9 2l-1.83 2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-3.17L15 2H9z"/></svg>
+          카메라
+        </button>
+        <button class="btn btn-ghost" id="galleryBtn">
+          <svg viewBox="0 0 24 24"><path d="M21 19V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2zM8.5 13.5l2.5 3 3.5-4.5 4.5 6H5l3.5-4.5z"/></svg>
+          앨범에서
+        </button>
+      </div>
+    </div>
+    <input type="file" id="fileCamera" accept="image/*" capture="environment" hidden>
+    <input type="file" id="fileGallery" accept="image/*" hidden>
+
+    <div class="section-label" id="histLabel" hidden>
+      <span>관람 기록</span>
+      <button id="clearHistBtn">전체 삭제</button>
+    </div>
+    <div class="hist" id="histList"></div>
+  </section>
+
+  <!-- ANALYZING -->
+  <section id="view-loading" hidden>
+    <div class="analyzing">
+      <div class="preview"><img id="loadImg" alt="촬영한 작품"><div class="scan"></div></div>
+      <div class="spinner"></div>
+      <div class="status" id="loadStatus">작품을 살펴보는 중…</div>
+    </div>
+  </section>
+
+  <!-- RESULT -->
+  <section id="view-result" hidden>
+    <div id="resultErr"></div>
+    <div class="result-hero"><img id="resImg" alt="촬영한 작품"></div>
+    <div id="resBody"></div>
+    <div class="row" style="margin-top:1.6rem;">
+      <button class="btn btn-ghost btn-block" id="backBtn">
+        <svg viewBox="0 0 24 24"><path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4zM9 2l-1.83 2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-3.17L15 2H9z"/></svg>
+        다른 작품 촬영
+      </button>
+    </div>
+  </section>
+
+</div>
+
+<!-- SETTINGS MODAL -->
+<div class="modal-bg" id="settingsModal" hidden>
+  <div class="modal">
+    <h2>설정 <button class="x" id="closeSettings">✕</button></h2>
+    <div class="fld-group">
+      <label class="fld" for="modelSel">해설 모델</label>
+      <select id="modelSel">
+        <option value="claude-opus-4-8">Opus 4.8 · 해설 정확도 최고</option>
+        <option value="claude-sonnet-5">Sonnet 5 · 균형 (빠름·저렴)</option>
+        <option value="claude-haiku-4-5">Haiku 4.5 · 가장 빠르고 저렴</option>
+      </select>
+    </div>
+    <div class="fld-group">
+      <label class="fld" for="apiKey2">API Key</label>
+      <input type="password" id="apiKey2" placeholder="sk-ant-..." autocomplete="off" spellcheck="false">
+    </div>
+    <div class="row">
+      <button class="btn btn-primary btn-block" id="saveSettingsBtn">저장</button>
+    </div>
+    <div class="row">
+      <button class="btn btn-ghost btn-block" id="clearKeyBtn" style="color:var(--danger);border-color:rgba(217,138,106,.3)">API 키 삭제</button>
+    </div>
+    <p class="hint">API 키와 관람 기록은 이 브라우저(localStorage)에만 저장됩니다.</p>
+  </div>
 </div>
 
 <script>
-/* ---------------------------------------------------------------
-   작품 데이터 (모두 퍼블릭 도메인)
-   --------------------------------------------------------------- */
-const ARTWORKS = [
-  {
-    id: "starry-night",
-    title: "별이 빛나는 밤",
-    original: "The Starry Night",
-    artist: "빈센트 반 고흐",
-    year: "1889",
-    cat: "회화",
-    movement: "후기인상주의",
-    medium: "캔버스에 유채",
-    size: "73.7 × 92.1 cm",
-    location: "뉴욕 현대미술관 (MoMA)",
-    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
-    hue: "#2a3a5c",
-    desc: [
-      "이 작품은 반 고흐가 프랑스 남부 <strong>생레미의 요양원</strong>에 머물던 시기, 새벽 창밖으로 바라본 밤 풍경을 기억에 의존해 그린 것입니다. 실제 풍경이라기보다 화가의 내면이 투영된 심상 풍경에 가깝습니다.",
-      "화면을 가득 채운 <strong>소용돌이치는 하늘</strong>은 굵고 역동적인 붓질로 표현되어, 별빛과 대기가 살아 움직이는 듯한 인상을 줍니다. 노란 별과 달 주위로 번지는 빛무리는 물감을 두껍게 쌓아 올린 임파스토 기법으로 강조되었습니다.",
-      "화면 왼쪽의 어두운 <strong>사이프러스 나무</strong>는 하늘을 향해 불꽃처럼 솟아오르며, 전통적으로 죽음과 영원을 상징합니다. 반면 그 아래 고요히 잠든 마을과 교회 첨탑은 안정과 평온을 나타내어, 격정적인 하늘과 강렬한 대비를 이룹니다.",
-      "반 고흐는 동생 테오에게 보낸 편지에서 밤이 낮보다 더 풍부한 색을 지닌다고 적었습니다. 이 그림은 그의 정신적 고통과 자연에 대한 경외가 하나로 응축된, 미술사상 가장 사랑받는 밤 풍경으로 남아 있습니다."
-    ]
-  },
-  {
-    id: "pearl-earring",
-    title: "진주 귀걸이를 한 소녀",
-    original: "Girl with a Pearl Earring",
-    artist: "요하네스 페르메이르",
-    year: "약 1665",
-    cat: "회화",
-    movement: "네덜란드 황금기 · 바로크",
-    medium: "캔버스에 유채",
-    size: "44.5 × 39 cm",
-    location: "마우리츠하위스 미술관, 헤이그",
-    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/1665_Girl_with_a_Pearl_Earring.jpg/620px-1665_Girl_with_a_Pearl_Earring.jpg",
-    hue: "#1f3340",
-    desc: [
-      "‘북유럽의 모나리자’라 불리는 이 그림은 특정 인물의 초상이 아니라 <strong>‘트로니(tronie)’</strong>, 즉 상상 속 인물의 표정과 의상을 연구한 작품으로 여겨집니다.",
-      "어두운 배경 속에서 소녀가 어깨 너머로 관람자를 바라보는 순간이 포착되어 있습니다. 살짝 벌린 입술과 촉촉한 눈빛은 무언가 말을 건네려는 찰나의 <strong>친밀함</strong>을 자아냅니다.",
-      "페르메이르는 빛의 화가답게 소녀의 이마와 코, 그리고 진주에 떨어지는 <strong>섬세한 하이라이트</strong>로 생생한 입체감을 만들어냈습니다. 특히 진주는 단 몇 번의 붓질만으로 반짝임을 완벽히 구현한 것으로 유명합니다.",
-      "머리를 감싼 파랑과 노랑의 터번은 이국적인 분위기를 더하며, 값비싼 <strong>울트라마린</strong> 안료의 사용은 화가의 야심을 보여줍니다."
-    ]
-  },
-  {
-    id: "the-kiss",
-    title: "키스",
-    original: "The Kiss",
-    artist: "구스타프 클림트",
-    year: "1907–1908",
-    cat: "회화",
-    movement: "빈 분리파 · 아르누보",
-    medium: "캔버스에 유채와 금박",
-    size: "180 × 180 cm",
-    location: "벨베데레 궁전, 빈",
-    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/The_Kiss_-_Gustav_Klimt_-_Google_Cultural_Institute.jpg/620px-The_Kiss_-_Gustav_Klimt_-_Google_Cultural_Institute.jpg",
-    hue: "#6a531e",
-    desc: [
-      "클림트의 <strong>‘황금 시기’</strong>를 대표하는 이 작품은 실제 금박을 화면에 붙여 완성했습니다. 비잔틴 모자이크에서 영감을 받은 화려한 장식성이 작품 전체를 감쌉니다.",
-      "꽃밭의 벼랑 끝에서 한 연인이 포옹하고 있습니다. 남성의 옷에는 <strong>흑백의 직사각형</strong>, 여성의 옷에는 <strong>둥근 꽃무늬</strong>가 그려져 남성성과 여성성을 상징적으로 대비시킵니다.",
-      "두 사람의 얼굴과 손 등 노출된 살결만이 사실적으로 묘사되어, 추상적인 금빛 세계 속에서 오히려 <strong>인간적 온기</strong>가 두드러집니다.",
-      "황홀경에 빠진 여인의 표정과 벼랑이라는 위태로운 배경은, 사랑의 절정과 그 이면의 불안을 동시에 암시한다는 해석을 낳습니다."
-    ]
-  },
-  {
-    id: "the-scream",
-    title: "절규",
-    original: "The Scream",
-    artist: "에드바르 뭉크",
-    year: "1893",
-    cat: "회화",
-    movement: "표현주의 · 상징주의",
-    medium: "판지에 유채·템페라·파스텔",
-    size: "91 × 73.5 cm",
-    location: "국립미술관, 오슬로",
-    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/The_Scream.jpg/600px-The_Scream.jpg",
-    hue: "#8a4a1e",
-    desc: [
-      "뭉크는 일기에 “친구들과 걷던 중 하늘이 핏빛으로 물들었고, 자연을 관통하는 <strong>끝없는 절규</strong>를 느꼈다”고 적었습니다. 이 그림은 바로 그 순간의 실존적 불안을 형상화한 것입니다.",
-      "다리 위에서 두 손으로 얼굴을 감싼 인물은 성별도 나이도 알 수 없는 <strong>해골 같은 형상</strong>으로, 보편적 공포의 상징이 됩니다.",
-      "굽이치는 곡선의 하늘과 풍경은 인물의 심리 상태에 감응하듯 요동치며, 뒤편의 두 인물은 이 감정에 무관심한 채 걸어갑니다. 이 <strong>단절감</strong>이 고독을 더욱 깊게 만듭니다.",
-      "‘절규’는 현대인의 소외와 불안을 압축한 아이콘으로, 20세기 표현주의 미술의 문을 연 기념비적 작품입니다."
-    ]
-  },
-  {
-    id: "mona-lisa",
-    title: "모나리자",
-    original: "Mona Lisa",
-    artist: "레오나르도 다 빈치",
-    year: "약 1503–1519",
-    cat: "회화",
-    movement: "르네상스",
-    medium: "포플러 패널에 유채",
-    size: "77 × 53 cm",
-    location: "루브르 박물관, 파리",
-    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_retouched.jpg/600px-Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_retouched.jpg",
-    hue: "#4a3d24",
-    desc: [
-      "세계에서 가장 유명한 초상화인 이 작품의 모델은 피렌체 상인의 부인 <strong>리사 게라르디니</strong>로 추정됩니다. 이탈리아어 제목 ‘라 조콘다’ 역시 그녀의 성에서 유래합니다.",
-      "다 빈치는 윤곽선을 흐릿하게 처리하는 <strong>스푸마토(sfumato)</strong> 기법으로 눈가와 입가를 부드럽게 감싸, 보는 각도에 따라 달라지는 신비로운 미소를 만들어냈습니다.",
-      "배경의 <strong>대기 원근법</strong>은 멀어질수록 흐려지고 푸르게 변하는 풍경으로 깊은 공간감을 부여합니다. 좌우 지평선의 높이가 미묘하게 달라 화면에 은근한 긴장을 더합니다.",
-      "차분히 포갠 두 손과 정면을 향한 자세는 이후 서양 초상화의 <strong>표준</strong>이 되었으며, 이 작품은 르네상스 인문주의가 도달한 정점으로 평가받습니다."
-    ]
-  },
-  {
-    id: "birth-of-venus",
-    title: "비너스의 탄생",
-    original: "The Birth of Venus",
-    artist: "산드로 보티첼리",
-    year: "약 1485",
-    cat: "회화",
-    movement: "초기 르네상스",
-    medium: "캔버스에 템페라",
-    size: "172.5 × 278.9 cm",
-    location: "우피치 미술관, 피렌체",
-    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Sandro_Botticelli_-_La_nascita_di_Venere_-_Google_Arts_Project_-_edited.jpg/800px-Sandro_Botticelli_-_La_nascita_di_Venere_-_Google_Arts_Project_-_edited.jpg",
-    hue: "#3f5a54",
-    desc: [
-      "이 작품은 사랑과 미의 여신 <strong>비너스</strong>가 바다의 거품에서 태어나 조개 껍데기를 타고 해안에 도착하는 신화의 순간을 담고 있습니다.",
-      "왼쪽에서는 서풍의 신 제피로스가 봄바람을 불어 여신을 뭍으로 밀어주고, 오른쪽에서는 계절의 여신이 꽃무늬 망토로 그녀를 맞이합니다.",
-      "보티첼리는 해부학적 사실성보다 <strong>우아한 곡선과 리듬</strong>을 우선했습니다. 비너스의 길게 늘어진 목과 흘러내리는 금빛 머리카락은 이상화된 아름다움을 구현합니다.",
-      "중세의 종교화가 지배하던 시대에 이교의 여신을 실물 크기로 그린 것은 <strong>고전 부활</strong>을 향한 르네상스 정신의 대담한 선언이었습니다."
-    ]
-  },
-  {
-    id: "grande-jatte",
-    title: "그랑드 자트 섬의 일요일 오후",
-    original: "A Sunday on La Grande Jatte",
-    artist: "조르주 쇠라",
-    year: "1884–1886",
-    cat: "회화",
-    movement: "신인상주의 · 점묘법",
-    medium: "캔버스에 유채",
-    size: "207.5 × 308.1 cm",
-    location: "시카고 미술관",
-    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/A_Sunday_on_La_Grande_Jatte%2C_Georges_Seurat%2C_1884.jpg/800px-A_Sunday_on_La_Grande_Jatte%2C_Georges_Seurat%2C_1884.jpg",
-    hue: "#3b5233",
-    desc: [
-      "쇠라는 파리 근교 센강의 섬에서 휴일을 즐기는 사람들을 <strong>수백만 개의 작은 색점</strong>으로 그려냈습니다. 물감을 팔레트에서 섞지 않고, 순색 점을 나란히 찍어 관람자의 눈에서 색이 섞이도록 한 것입니다.",
-      "이 <strong>점묘법(pointillism)</strong>은 당대의 광학·색채 이론을 회화에 과학적으로 적용한 결과로, 인상주의를 한 단계 발전시켰습니다.",
-      "인물들은 마치 조각처럼 정지되어 <strong>기하학적 질서</strong> 속에 배열되어 있습니다. 이 정적인 엄격함은 순간을 포착하던 인상주의와 뚜렷이 구별됩니다.",
-      "완성까지 약 2년이 걸린 이 대작은 근대 도시인의 여가를 냉정하고도 기념비적인 화면으로 박제한, 미술사의 전환점입니다."
-    ]
-  },
-  {
-    id: "impression-sunrise",
-    title: "인상, 해돋이",
-    original: "Impression, Sunrise",
-    artist: "클로드 모네",
-    year: "1872",
-    cat: "회화",
-    movement: "인상주의",
-    medium: "캔버스에 유채",
-    size: "48 × 63 cm",
-    location: "마르모탕 모네 미술관, 파리",
-    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Monet_-_Impression%2C_Sunrise.jpg/800px-Monet_-_Impression%2C_Sunrise.jpg",
-    hue: "#5a4a3a",
-    desc: [
-      "이 작품은 모네의 고향 <strong>르아브르 항구</strong>의 해 뜨는 순간을 그린 것으로, 안개 속에서 붉게 떠오르는 태양과 물 위에 부서지는 빛의 반영이 재빠른 붓질로 포착되어 있습니다.",
-      "1874년 첫 전시 때 한 비평가가 이 그림의 제목을 조롱하며 ‘인상주의자들’이라 부른 것이 <strong>인상주의(Impressionism)</strong>라는 사조 이름의 유래가 되었습니다.",
-      "모네는 대상의 형태를 정밀하게 묘사하는 대신, 특정 순간의 <strong>빛과 대기, 분위기</strong>를 담는 데 집중했습니다. 흐릿한 배와 굴뚝은 형태보다 인상을 앞세웁니다.",
-      "얇고 성긴 물감층과 즉흥적인 터치는 ‘미완성 같다’는 비판을 받았지만, 바로 그 점이 근대 회화의 새로운 시작을 알린 혁명이었습니다."
-    ]
-  },
-  {
-    id: "sunflowers",
-    title: "해바라기",
-    original: "Sunflowers",
-    artist: "빈센트 반 고흐",
-    year: "1888",
-    cat: "회화",
-    movement: "후기인상주의",
-    medium: "캔버스에 유채",
-    size: "92.1 × 73 cm",
-    location: "내셔널 갤러리, 런던",
-    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Vincent_Willem_van_Gogh_128.jpg/600px-Vincent_Willem_van_Gogh_128.jpg",
-    hue: "#8a6a1e",
-    desc: [
-      "반 고흐는 남프랑스 아를에서 친구 <strong>폴 고갱</strong>을 맞이할 방을 장식하기 위해 해바라기 연작을 그렸습니다. 노란 꽃은 그에게 우정과 감사, 그리고 태양의 생명력을 뜻했습니다.",
-      "화병 속 해바라기는 활짝 핀 것부터 시들어 고개 숙인 것까지 <strong>생의 여러 단계</strong>를 한 화면에 담고 있습니다.",
-      "노랑 위에 노랑을 겹쳐 칠하는 대담한 시도는 당시로서는 혁신적이었습니다. 그는 “노랑 외에는 아무것도 없는” 그림에 도전한다고 편지에 적었습니다.",
-      "두껍게 쌓은 물감의 <strong>질감</strong>은 꽃잎과 씨앗을 촉각적으로 느끼게 하며, 오늘날 해바라기는 반 고흐 그 자체를 상징하는 이미지가 되었습니다."
-    ]
-  },
-  {
-    id: "the-thinker",
-    title: "생각하는 사람",
-    original: "The Thinker",
-    artist: "오귀스트 로댕",
-    year: "1904 (원형 1880)",
-    cat: "조각",
-    movement: "근대 조각",
-    medium: "청동",
-    size: "높이 약 186 cm (기념비 버전)",
-    location: "로댕 미술관, 파리",
-    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/The_Thinker%2C_Rodin.jpg/500px-The_Thinker%2C_Rodin.jpg",
-    hue: "#4a4038",
-    desc: [
-      "‘생각하는 사람’은 원래 로댕의 대작 <strong>‘지옥의 문’</strong> 상단에 앉아 아래 인간 군상을 내려다보는 시인 단테를 형상화한 것이었습니다.",
-      "턱을 괸 채 웅크린 자세는 단순한 사색이 아니라 <strong>온몸으로 고뇌하는 인간</strong>을 보여줍니다. 등과 팔, 다리의 팽팽한 근육은 생각이 곧 육체적 투쟁임을 웅변합니다.",
-      "로댕은 매끄러운 마무리 대신 표면에 <strong>손자국과 거친 질감</strong>을 남겨, 빛이 조각 위에서 살아 움직이게 했습니다.",
-      "훗날 독립된 작품으로 확대 제작되면서, 이 청동상은 특정 인물을 넘어 <strong>사유하는 인류 전체</strong>를 상징하는 근대 조각의 아이콘이 되었습니다."
-    ]
-  },
-  {
-    id: "wave-kanagawa",
-    title: "가나가와 해변의 큰 파도",
-    original: "The Great Wave off Kanagawa",
-    artist: "가쓰시카 호쿠사이",
-    year: "약 1831",
-    cat: "판화",
-    movement: "우키요에",
-    medium: "목판 채색 판화",
-    size: "25.7 × 37.9 cm",
-    location: "메트로폴리탄 미술관 등 다수 소장",
-    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/The_Great_Wave_off_Kanagawa.jpg/800px-The_Great_Wave_off_Kanagawa.jpg",
-    hue: "#1f4a5a",
-    desc: [
-      "연작 <strong>‘후지산 36경’</strong> 중 첫 작품으로, 거대한 파도가 세 척의 배를 집어삼킬 듯 솟구치는 순간을 담았습니다.",
-      "파도의 물마루는 <strong>갈퀴 같은 물보라</strong>로 갈라져 마치 손톱처럼 배를 위협하고, 그 사이로 저 멀리 작고 고요한 <strong>후지산</strong>이 보입니다. 거대한 자연과 인간의 위태로움이 극적으로 대비됩니다.",
-      "선명한 <strong>프러시안 블루</strong> 안료는 당시 수입된 신소재로, 호쿠사이는 이를 대담하게 활용해 깊고 강렬한 바다를 표현했습니다.",
-      "이 판화는 유럽에 전해져 모네와 드뷔시 등 <strong>‘자포니즘’</strong> 열풍을 일으켰으며, 오늘날 가장 널리 알려진 일본 미술 작품이 되었습니다."
-    ]
-  },
-  {
-    id: "american-gothic",
-    title: "아메리칸 고딕",
-    original: "American Gothic",
-    artist: "그랜트 우드",
-    year: "1930",
-    cat: "회화",
-    movement: "미국 지역주의",
-    medium: "비버보드에 유채",
-    size: "78 × 65.3 cm",
-    location: "시카고 미술관",
-    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Grant_Wood_-_American_Gothic_-_Google_Art_Project.jpg/600px-Grant_Wood_-_American_Gothic_-_Google_Art_Project.jpg",
-    hue: "#5a5230",
-    desc: [
-      "그랜트 우드는 아이오와의 한 작은 집에 있는 <strong>고딕풍 창문</strong>을 보고, “이런 집에 어울릴 법한 사람들”을 상상하며 이 그림을 그렸습니다.",
-      "쇠스랑을 든 근엄한 농부와 그 옆의 여인(화가의 여동생과 치과의사가 모델)은 <strong>미국 중서부의 근면과 완고함</strong>을 상징합니다.",
-      "쇠스랑의 세 갈래는 남자의 얼굴 주름과 멜빵 무늬로 반복되며 화면에 <strong>엄격한 수직 질서</strong>를 부여합니다.",
-      "이 작품은 대공황기 미국인의 정체성을 담은 아이콘이자, 동시에 무수한 패러디를 낳은 <strong>대중문화의 원형</strong>이 되었습니다."
-    ]
-  }
-];
+/* ------------------------------------------------------------------ */
+const LS_KEY = "mc_api_key";
+const LS_MODEL = "mc_model";
+const LS_HIST = "mc_history";
+const API_URL = "https://api.anthropic.com/v1/messages";
 
-/* ---------------------------------------------------------------
-   상태 및 렌더링
-   --------------------------------------------------------------- */
-const CATS = ["전체", ...Array.from(new Set(ARTWORKS.map(a => a.cat)))];
-let activeCat = "전체";
-let query = "";
-let currentList = [];
-let currentIndex = -1;
-
-const gridEl = document.getElementById("grid");
-const filtersEl = document.getElementById("filters");
-const countEl = document.getElementById("count");
-const emptyEl = document.getElementById("empty");
-const overlay = document.getElementById("overlay");
-const detailEl = document.getElementById("detail");
-const searchEl = document.getElementById("search");
-
-/* 이미지 로드 실패 시 그라데이션 대체 */
-function attachFallback(img, art) {
-  img.addEventListener("error", () => {
-    const t = img.closest(".thumb, .detail-hero");
-    if (!t) return;
-    img.style.display = "none";
-    let fb = t.querySelector(".fallback");
-    const grad = `linear-gradient(150deg, ${art.hue}, #14110e)`;
-    if (!fb) {
-      fb = document.createElement("div");
-      fb.className = "fallback";
-      fb.innerHTML = `<span>${art.original}</span>`;
-      t.appendChild(fb);
-    }
-    t.style.background = grad;
-    fb.style.display = "flex";
-    if (t.classList.contains("detail-hero")) t.style.minHeight = "260px";
-  }, { once: true });
-}
-
-function renderFilters() {
-  filtersEl.innerHTML = "";
-  CATS.forEach(c => {
-    const b = document.createElement("button");
-    b.className = "chip" + (c === activeCat ? " active" : "");
-    b.textContent = c;
-    b.onclick = () => { activeCat = c; render(); };
-    filtersEl.appendChild(b);
-  });
-}
-
-function getFiltered() {
-  const q = query.trim().toLowerCase();
-  return ARTWORKS.filter(a => {
-    const catOk = activeCat === "전체" || a.cat === activeCat;
-    const qOk = !q || [a.title, a.original, a.artist, a.movement].join(" ").toLowerCase().includes(q);
-    return catOk && qOk;
-  });
-}
-
-function render() {
-  renderFilters();
-  currentList = getFiltered();
-  gridEl.innerHTML = "";
-  countEl.textContent = `${currentList.length}점의 작품`;
-  emptyEl.style.display = currentList.length ? "none" : "block";
-
-  currentList.forEach((a, i) => {
-    const card = document.createElement("article");
-    card.className = "card";
-    card.style.animationDelay = (i * 0.04) + "s";
-    card.tabIndex = 0;
-    card.setAttribute("role", "button");
-    card.setAttribute("aria-label", `${a.title}, ${a.artist}`);
-    card.innerHTML = `
-      <div class="thumb">
-        <span class="cat-tag">${a.cat}</span>
-        <img src="${a.img}" alt="${a.title} - ${a.artist}" loading="lazy">
-      </div>
-      <div class="card-body">
-        <div class="t">${a.title}</div>
-        <div class="a">${a.artist}</div>
-        <div class="y">${a.year} · ${a.movement}</div>
-      </div>`;
-    attachFallback(card.querySelector("img"), a);
-    const open = () => openDetail(a.id);
-    card.addEventListener("click", open);
-    card.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
-    gridEl.appendChild(card);
-  });
-}
-
-/* ---------------------------------------------------------------
-   상세 보기 + 오디오 가이드 (Web Speech API)
-   --------------------------------------------------------------- */
-function stripTags(html) { return html.replace(/<[^>]+>/g, ""); }
-
-function openDetail(id) {
-  currentIndex = currentList.findIndex(a => a.id === id);
-  if (currentIndex < 0) {
-    currentList = ARTWORKS;
-    currentIndex = ARTWORKS.findIndex(a => a.id === id);
-  }
-  renderDetail();
-  overlay.classList.add("open");
-  document.body.style.overflow = "hidden";
-  detailEl.scrollTop = 0;
-}
-
-function renderDetail() {
-  const a = currentList[currentIndex];
-  const hasPrev = currentIndex > 0;
-  const hasNext = currentIndex < currentList.length - 1;
-  detailEl.innerHTML = `
-    <div class="detail-hero">
-      <button class="close" aria-label="닫기">✕</button>
-      ${hasPrev ? '<button class="nav-btn prev" aria-label="이전 작품">‹</button>' : ''}
-      ${hasNext ? '<button class="nav-btn next" aria-label="다음 작품">›</button>' : ''}
-      <img src="${a.img}" alt="${a.title} - ${a.artist}">
-    </div>
-    <div class="detail-body">
-      <div class="detail-cat">${a.cat} · ${a.movement}</div>
-      <h2 class="detail-title" id="d-title">${a.title}</h2>
-      <div class="detail-sub">${a.original} · ${a.artist}, ${a.year}</div>
-      <div class="meta">
-        <div><div class="k">작가</div><div class="v">${a.artist}</div></div>
-        <div><div class="k">제작 연도</div><div class="v">${a.year}</div></div>
-        <div><div class="k">재료·기법</div><div class="v">${a.medium}</div></div>
-        <div><div class="k">크기</div><div class="v">${a.size}</div></div>
-        <div><div class="k">소장처</div><div class="v">${a.location}</div></div>
-        <div><div class="k">사조</div><div class="v">${a.movement}</div></div>
-      </div>
-      <div class="audio-bar">
-        <button class="audio-btn" id="audioBtn">
-          <svg viewBox="0 0 24 24"><path d="M3 10v4h4l5 5V5L7 10H3zm13.5 2A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.06a7 7 0 0 1 0 13.48v2.06a9 9 0 0 0 0-17.6z"/></svg>
-          <span id="audioLabel">오디오 가이드 듣기</span>
-        </button>
-        <span class="audio-note" id="audioNote">해설을 음성으로 들려드립니다</span>
-      </div>
-      <div class="desc">${a.desc.map(p => `<p>${p}</p>`).join("")}</div>
-      <div class="detail-footer">작품 ${currentIndex + 1} / ${currentList.length} · Public Domain</div>
-    </div>`;
-  attachFallback(detailEl.querySelector(".detail-hero img"), a);
-  detailEl.querySelector(".close").onclick = closeDetail;
-  const prev = detailEl.querySelector(".prev");
-  const next = detailEl.querySelector(".next");
-  if (prev) prev.onclick = () => step(-1);
-  if (next) next.onclick = () => step(1);
-  setupAudio(a);
-}
-
-function step(dir) {
-  const ni = currentIndex + dir;
-  if (ni < 0 || ni >= currentList.length) return;
-  stopSpeech();
-  currentIndex = ni;
-  renderDetail();
-  detailEl.scrollTop = 0;
-}
-
-function closeDetail() {
-  overlay.classList.remove("open");
-  document.body.style.overflow = "";
-  stopSpeech();
-}
-
-/* --- 음성 합성 --- */
-let speaking = false;
+const $ = (id) => document.getElementById(id);
 const synth = window.speechSynthesis;
 
-function stopSpeech() {
-  if (synth) synth.cancel();
-  speaking = false;
+let speaking = false;
+
+/* JSON schema for structured docent output */
+const SCHEMA = {
+  type: "object",
+  properties: {
+    identified: { type: "boolean" },
+    confidence: { type: "string", enum: ["high", "medium", "low"] },
+    title:    { type: "string" },
+    artist:   { type: "string" },
+    year:     { type: "string" },
+    movement: { type: "string" },
+    medium:   { type: "string" },
+    category: { type: "string" },
+    summary:  { type: "string" },
+    description: { type: "array", items: { type: "string" } },
+    highlights:  { type: "array", items: { type: "string" } }
+  },
+  required: ["identified","confidence","title","artist","year","movement","medium","category","summary","description","highlights"],
+  additionalProperties: false
+};
+
+const SYSTEM = `당신은 미술관·박물관의 전문 도슨트입니다. 관람객이 현장에서 촬영한 작품 사진을 보고, 오디오 가이드처럼 친절하고 깊이 있는 한국어 해설을 제공합니다.
+
+지침:
+- 사진 속 작품(회화·조각·공예·유물·설치 등 무엇이든)을 살펴보고 가능한 한 특정 작품을 식별하세요.
+- 특정 작품·작가를 확신하면 identified=true, confidence를 high 또는 medium으로. 유명 작품이 아니거나 식별이 어려우면 identified=false, confidence=low로 하되, 그래도 보이는 것(양식·기법·주제·시대적 특징)을 바탕으로 충실히 해설하세요. 절대 사실을 지어내지 말고, 불확실하면 "…로 보입니다", "…양식의 특징이 나타납니다"처럼 표현하세요.
+- 값을 알 수 없으면 해당 필드에 "미상"을 넣으세요.
+- summary: 한 문장의 핵심 소개.
+- description: 3~4개 단락의 배열. 작품의 주제·구성, 기법과 표현, 역사·문화적 맥락, 감상 포인트를 이야기하듯 풀어주세요. 각 단락 120~200자.
+- highlights: 관람 시 주목할 감상 포인트 3~4개(각 한 줄).
+- category: 회화/조각/공예/사진/판화/유물/설치 등 분류.
+- 모든 텍스트는 한국어로.`;
+
+/* ---------------- view switching ---------------- */
+function show(view) {
+  ["setup","home","loading","result"].forEach(v => $("view-"+v).hidden = (v !== view));
+  stopSpeech();
+  window.scrollTo(0, 0);
+}
+function hasKey() { return !!localStorage.getItem(LS_KEY); }
+function getModel() { return localStorage.getItem(LS_MODEL) || "claude-opus-4-8"; }
+
+/* ---------------- image handling ---------------- */
+function fileToResizedJpeg(file, maxEdge) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      let { width: w, height: h } = img;
+      const scale = Math.min(1, maxEdge / Math.max(w, h));
+      w = Math.round(w * scale); h = Math.round(h * scale);
+      const c = document.createElement("canvas");
+      c.width = w; c.height = h;
+      c.getContext("2d").drawImage(img, 0, 0, w, h);
+      resolve(c.toDataURL("image/jpeg", 0.85));
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); reject(new Error("이미지를 불러올 수 없습니다.")); };
+    img.src = url;
+  });
+}
+const stripB64 = (dataUrl) => dataUrl.split(",")[1];
+
+/* ---------------- Claude Vision call ---------------- */
+async function analyze(dataUrl) {
+  const key = localStorage.getItem(LS_KEY);
+  const body = {
+    model: getModel(),
+    max_tokens: 2048,
+    system: SYSTEM,
+    messages: [{
+      role: "user",
+      content: [
+        { type: "image", source: { type: "base64", media_type: "image/jpeg", data: stripB64(dataUrl) } },
+        { type: "text", text: "이 작품을 도슨트처럼 해설해주세요." }
+      ]
+    }],
+    output_config: { format: { type: "json_schema", schema: SCHEMA } }
+  };
+
+  const resp = await fetch(API_URL, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      "x-api-key": key,
+      "anthropic-version": "2023-06-01",
+      "anthropic-dangerous-direct-browser-access": "true"
+    },
+    body: JSON.stringify(body)
+  });
+
+  if (!resp.ok) {
+    let msg = `요청 실패 (HTTP ${resp.status})`;
+    try {
+      const e = await resp.json();
+      const t = e?.error?.message || "";
+      if (resp.status === 401) msg = "API 키가 유효하지 않습니다. 설정에서 키를 확인해주세요.";
+      else if (resp.status === 429) msg = "요청이 많습니다(429). 잠시 후 다시 시도해주세요.";
+      else if (resp.status === 400 && /credit|balance/i.test(t)) msg = "계정 크레딧이 부족합니다. Anthropic 콘솔에서 결제를 확인해주세요.";
+      else if (t) msg += " — " + t;
+    } catch (_) {}
+    throw new Error(msg);
+  }
+
+  const data = await resp.json();
+  if (data.stop_reason === "refusal") {
+    throw new Error("이 이미지에 대한 해설을 제공할 수 없습니다. 다른 작품을 촬영해보세요.");
+  }
+  const textBlock = (data.content || []).find(b => b.type === "text");
+  if (!textBlock) throw new Error("해설을 받지 못했습니다. 다시 시도해주세요.");
+  try {
+    return JSON.parse(textBlock.text);
+  } catch (_) {
+    // Fallback: show raw text
+    return { identified: false, confidence: "low", title: "작품", artist: "미상", year: "미상",
+      movement: "미상", medium: "미상", category: "미상",
+      summary: "", description: [textBlock.text], highlights: [] };
+  }
 }
 
-function setupAudio(a) {
-  const btn = document.getElementById("audioBtn");
-  const label = document.getElementById("audioLabel");
-  const note = document.getElementById("audioNote");
-  if (!synth) {
-    btn.disabled = true;
-    btn.style.opacity = ".5";
-    btn.style.cursor = "not-allowed";
-    note.textContent = "이 브라우저는 음성 안내를 지원하지 않습니다";
-    return;
-  }
-  const text = `${a.title}. ${a.artist}, ${a.year}. ` + a.desc.map(stripTags).join(" ");
-  const setIdle = () => { speaking = false; label.textContent = "오디오 가이드 듣기"; };
+/* ---------------- render result ---------------- */
+function renderResult(art, imgUrl) {
+  $("resImg").src = imgUrl;
+  $("resultErr").innerHTML = "";
+  const confLabel = { high: "높은 신뢰도", medium: "추정", low: "참고용 해설" }[art.confidence] || "참고용 해설";
+  const val = (x) => (x && x !== "미상") ? x : "—";
+  const metaRows = [
+    ["작가", art.artist], ["제작 시기", art.year],
+    ["분류", art.category], ["사조·양식", art.movement],
+    ["재료·기법", art.medium]
+  ].filter(([k,v]) => v);
+
+  $("resBody").innerHTML = `
+    <div class="badge conf-${art.confidence}"><span class="dot"></span>${art.identified ? "작품 식별됨" : "식별 추정"} · ${confLabel}</div>
+    <div class="r-title">${esc(art.title || "작품")}</div>
+    <div class="r-sub">${esc(val(art.artist))}${art.year && art.year!=="미상" ? " · " + esc(art.year) : ""}</div>
+    <div class="meta-grid">
+      ${metaRows.map(([k,v]) => `<div><div class="k">${k}</div><div class="v">${esc(v)}</div></div>`).join("")}
+    </div>
+    <div class="audio-bar">
+      <button class="audio-btn" id="audioBtn">
+        <svg viewBox="0 0 24 24"><path d="M3 10v4h4l5 5V5L7 10H3zm13.5 2A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.06a7 7 0 0 1 0 13.48v2.06a9 9 0 0 0 0-17.6z"/></svg>
+        <span id="audioLabel">오디오 가이드 듣기</span>
+      </button>
+      <span class="audio-note" id="audioNote">해설을 음성으로 들려드립니다</span>
+    </div>
+    <div class="desc">
+      ${art.summary ? `<p class="summary">${esc(art.summary)}</p>` : ""}
+      ${(art.description || []).map(p => `<p>${esc(p)}</p>`).join("")}
+    </div>
+    ${(art.highlights && art.highlights.length) ? `
+    <div class="highlights">
+      <h3>감상 포인트</h3>
+      <ul>${art.highlights.map(h => `<li>${esc(h)}</li>`).join("")}</ul>
+    </div>` : ""}
+    <p class="disclaimer">AI가 생성한 해설로 실제와 다를 수 있습니다. 정확한 정보는 현장 라벨·도록을 확인하세요.${art.confidence === "low" ? " 이 작품은 확실히 식별되지 않아, 보이는 특징을 바탕으로 한 참고용 해설입니다." : ""}</p>
+  `;
+  setupAudio(art);
+  show("result");
+}
+
+function esc(s) { const d = document.createElement("div"); d.textContent = s == null ? "" : String(s); return d.innerHTML; }
+function stripTags(s) { return String(s || "").replace(/<[^>]+>/g, ""); }
+
+/* ---------------- audio (TTS) ---------------- */
+function stopSpeech() { if (synth) synth.cancel(); speaking = false; }
+function setupAudio(art) {
+  const btn = $("audioBtn"), label = $("audioLabel"), note = $("audioNote");
+  if (!synth) { btn.disabled = true; btn.style.opacity = ".5"; note.textContent = "이 브라우저는 음성 안내를 지원하지 않습니다"; return; }
+  const text = [art.title, art.artist && art.artist !== "미상" ? art.artist : "", art.summary,
+    ...(art.description || []), (art.highlights || []).join(". ")].filter(Boolean).map(stripTags).join(". ");
+  const idle = () => { speaking = false; label.textContent = "오디오 가이드 듣기"; };
   btn.onclick = () => {
-    if (speaking) { stopSpeech(); setIdle(); return; }
+    if (speaking) { stopSpeech(); idle(); return; }
     stopSpeech();
     const u = new SpeechSynthesisUtterance(text);
-    u.lang = "ko-KR";
-    u.rate = 0.98;
-    u.pitch = 1.0;
-    const voices = synth.getVoices();
-    const ko = voices.find(v => v.lang && v.lang.toLowerCase().startsWith("ko"));
+    u.lang = "ko-KR"; u.rate = 0.98;
+    const ko = (synth.getVoices() || []).find(v => v.lang && v.lang.toLowerCase().startsWith("ko"));
     if (ko) u.voice = ko;
-    u.onend = setIdle;
-    u.onerror = setIdle;
-    synth.speak(u);
-    speaking = true;
-    label.textContent = "재생 중지";
+    u.onend = idle; u.onerror = idle;
+    synth.speak(u); speaking = true; label.textContent = "재생 중지";
   };
 }
 if (synth) synth.onvoiceschanged = () => {};
 
-/* ---------------------------------------------------------------
-   이벤트
-   --------------------------------------------------------------- */
-searchEl.addEventListener("input", e => { query = e.target.value; render(); });
-overlay.addEventListener("click", e => { if (e.target === overlay) closeDetail(); });
-document.addEventListener("keydown", e => {
-  if (!overlay.classList.contains("open")) return;
-  if (e.key === "Escape") closeDetail();
-  else if (e.key === "ArrowLeft") step(-1);
-  else if (e.key === "ArrowRight") step(1);
-});
+/* ---------------- history ---------------- */
+function loadHist() { try { return JSON.parse(localStorage.getItem(LS_HIST) || "[]"); } catch (_) { return []; } }
+function saveHistItem(art, thumb) {
+  const list = loadHist();
+  list.unshift({ id: Date.now(), title: art.title || "작품", artist: art.artist || "미상", thumb, art, ts: Date.now() });
+  localStorage.setItem(LS_HIST, JSON.stringify(list.slice(0, 30)));
+  renderHist();
+}
+function renderHist() {
+  const list = loadHist(), el = $("histList");
+  $("histLabel").hidden = list.length === 0;
+  if (!list.length) { el.innerHTML = `<div class="empty">아직 촬영한 작품이 없습니다.</div>`; return; }
+  el.innerHTML = list.map(it => `
+    <div class="hist-item" data-id="${it.id}">
+      <img src="${it.thumb}" alt="">
+      <div class="meta">
+        <div class="t">${esc(it.title)}</div>
+        <div class="a">${esc(it.artist)}</div>
+        <div class="d">${fmtDate(it.ts)}</div>
+      </div>
+    </div>`).join("");
+  el.querySelectorAll(".hist-item").forEach(node => {
+    node.onclick = () => {
+      const it = loadHist().find(x => x.id == node.dataset.id);
+      if (it) renderResult(it.art, it.thumb);
+    };
+  });
+}
+function fmtDate(ts) {
+  const d = new Date(ts);
+  return `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,"0")}.${String(d.getDate()).padStart(2,"0")} ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
+}
 
-render();
+/* ---------------- capture flow ---------------- */
+async function handleFile(file) {
+  if (!file) return;
+  try {
+    const full = await fileToResizedJpeg(file, 1200);
+    const thumb = await fileToResizedJpeg(file, 240);
+    $("loadImg").src = full;
+    $("loadStatus").textContent = "작품을 살펴보는 중…";
+    show("loading");
+    setTimeout(() => { if (!$("view-loading").hidden) $("loadStatus").textContent = "해설을 작성하는 중…"; }, 4000);
+    const art = await analyze(full);
+    saveHistItem(art, thumb);
+    renderResult(art, full);
+  } catch (err) {
+    $("resImg").src = "";
+    $("resBody").innerHTML = "";
+    $("resultErr").innerHTML = `<div class="alert"><b>해설을 가져오지 못했습니다.</b><br>${esc(err.message)}</div>`;
+    show("result");
+  }
+}
+
+/* ---------------- settings ---------------- */
+function openSettings() {
+  $("apiKey2").value = localStorage.getItem(LS_KEY) || "";
+  $("modelSel").value = getModel();
+  $("settingsModal").hidden = false;
+}
+function closeSettings() { $("settingsModal").hidden = true; }
+
+/* ---------------- init & events ---------------- */
+function boot() {
+  if (hasKey()) { $("settingsBtn").hidden = false; renderHist(); show("home"); }
+  else { show("setup"); }
+}
+
+$("saveKeyBtn").onclick = () => {
+  const k = $("apiKey").value.trim();
+  if (!k) { $("apiKey").focus(); return; }
+  localStorage.setItem(LS_KEY, k);
+  $("settingsBtn").hidden = false;
+  renderHist(); show("home");
+};
+$("apiKey").addEventListener("keydown", e => { if (e.key === "Enter") $("saveKeyBtn").click(); });
+
+$("captureCard").onclick = () => $("fileCamera").click();
+$("cameraBtn").onclick = () => $("fileCamera").click();
+$("galleryBtn").onclick = () => $("fileGallery").click();
+$("fileCamera").onchange = (e) => { handleFile(e.target.files[0]); e.target.value = ""; };
+$("fileGallery").onchange = (e) => { handleFile(e.target.files[0]); e.target.value = ""; };
+$("backBtn").onclick = () => show("home");
+
+$("settingsBtn").onclick = openSettings;
+$("closeSettings").onclick = closeSettings;
+$("settingsModal").onclick = (e) => { if (e.target === $("settingsModal")) closeSettings(); };
+$("saveSettingsBtn").onclick = () => {
+  const k = $("apiKey2").value.trim();
+  if (k) localStorage.setItem(LS_KEY, k);
+  localStorage.setItem(LS_MODEL, $("modelSel").value);
+  closeSettings();
+};
+$("clearKeyBtn").onclick = () => {
+  if (confirm("API 키를 삭제할까요? 관람 기록은 유지됩니다.")) {
+    localStorage.removeItem(LS_KEY);
+    closeSettings(); $("settingsBtn").hidden = true; show("setup");
+  }
+};
+$("clearHistBtn").onclick = () => {
+  if (confirm("모든 관람 기록을 삭제할까요?")) { localStorage.removeItem(LS_HIST); renderHist(); }
+};
+
+boot();
 </script>
 </body>
 </html>
