@@ -1,0 +1,20 @@
+{
+  "_comment": "monthly_investment_jpy: 이번 달 적립/추가매수 예산(엔화). watchlist: 라쿠텐증권 성장투자枠(成長投資枠)에서 매수 가능한 미국 ETF 티커 목록 - 실제 매수 전 라쿠텐증권 앱에서 최신 취급 여부를 반드시 재확인하세요.",
+  "monthly_investment_jpy": 100000,
+  "currency": "JPY",
+  "watchlist": [
+    { "ticker": "VOO", "name": "Vanguard S&P 500 ETF" },
+    { "ticker": "VTI", "name": "Vanguard Total Stock Market ETF" },
+    { "ticker": "VYM", "name": "Vanguard High Dividend Yield ETF" },
+    { "ticker": "SPYD", "name": "SPDR Portfolio S&P 500 High Dividend ETF" },
+    { "ticker": "QQQ", "name": "Invesco QQQ Trust (Nasdaq 100)" },
+    { "ticker": "VT", "name": "Vanguard Total World Stock ETF" }
+  ],
+  "signal_thresholds": {
+    "dip_buy_day_change_pct": -3.0,
+    "dip_buy_below_sma25_pct": -5.0,
+    "overbought_near_high_pct": -2.0,
+    "overbought_day_change_pct": 3.0
+  },
+  "sessions": ["morning", "lunch", "evening"]
+}
